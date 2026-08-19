@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام التسيير</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f6fa;
+      color: #222;
+    }
+
+    header {
+      background: #2563eb;
+      color: white;
+      padding: 25px 20px;
+      border-radius: 0 0 25px 25px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 18px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: #666;
+    }
+
+    .number {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .section {
+      background: white;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 18px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 12px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    #products {
+      margin-top: 15px;
+    }
+
+    .product {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>📊 نظام التسيير</h1>
+    <p>لوحة التحكم الرئيسية</p>
+  </header>
+
+  <div class="container">
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>💰 المبيعات</h3>
+        <div class="number" id="sales">0 دج</div>
+      </div>
+
+      <div class="card">
+        <h3>📦 المنتجات</h3>
+        <div class="number" id="productCount">0</div>
+      </div>
+
+      <div class="card">
+        <h3>🧾 العمليات</h3>
+        <div class="number" id="operations">0</div>
+      </div>
+
+      <div class="card">
+        <h3>📈 الأرباح</h3>
+        <div class="number" id="profits">0 دج</div>
+      </div>
+
+    </div>
+
+    <div class="section">
+      <h2>➕ إضافة منتج</h2>
+
+      <input
+        type="text"
+        id="productName"
+        placeholder="اسم المنتج"
+      >
+
+      <input
+        type="number"
+        id="productPrice"
+        placeholder="السعر بالدج"
+      >
+
+      <button onclick="addProduct()">
+        إضافة المنتج
+      </button>
+
+      <div id="products"></div>
+    </div>
+
+  </div>
+
+  <script>
+
+    let products = JSON.parse(
+      localStorage.getItem("products") || "[]"
+    );
+
+    function saveProducts() {
+      localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+      );
+    }
+
+    function displayProducts() {
+
+      const list = document.getElementById("products");
+
+      list.innerHTML = "";
+
+      products.forEach(function(product) {
+
+        const div = document.createElement("div");
+
+        div.className = "product";
+
+        div.innerHTML =
+          "📦 <strong>" +
+          product.name +
+          "</strong> — " +
+          product.price +
+          " دج";
+
+        list.appendChild(div);
+
+      });
+
+      document.getElementById("productCount").textContent =
+        products.length;
+    }
+
+    function addProduct() {
+
+      const name =
+        document.getElementById("productName").value.trim();
+
+      const price =
+        Number(document.getElementById("productPrice").value);
+
+      if (!name || !price) {
+        alert("أدخل اسم المنتج والسعر");
+        return;
+      }
+
+      products.push({
+        name: name,
+        price: price
+      });
+
+      saveProducts();
+
+      displayProducts();
+
+      document.getElementById("productName").value = "";
+      document.getElementById("productPrice").value = "";
+    }
+
+    displayProducts();
+
+  </script>
+
+</body>
+</html>
