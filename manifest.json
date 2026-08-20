@@ -1,0 +1,12 @@
+{
+  "name": "نظام التسيير",
+  "short_name": "التسيير",
+  "description": "نظام إدارة المنتجات والمبيعات والمصاريف والفواتير",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f6f9",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl"
+}
