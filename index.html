@@ -4,9 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#2563eb">
+
 <title>نظام التسيير</title>
 
 <style>
+
 :root{
   --main:#2563eb;
   --bg:#f4f6f9;
@@ -17,24 +19,30 @@
 
 *{
   box-sizing:border-box;
-  font-family:Arial,sans-serif
+  font-family:Arial,sans-serif;
 }
 
 body{
   margin:0;
-  background:var(--bg);
   color:var(--text);
+  background:var(--bg);
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
 }
 
 .hidden{
   display:none!important;
 }
 
+/* HEADER */
+
 header{
   background:var(--main);
   color:white;
   padding:20px 16px;
   border-radius:0 0 25px 25px;
+  box-shadow:0 3px 15px #0003;
 }
 
 header h1{
@@ -44,6 +52,7 @@ header h1{
 
 header p{
   margin:7px 0 0;
+  opacity:.9;
 }
 
 .container{
@@ -51,6 +60,8 @@ header p{
   margin:auto;
   padding:15px;
 }
+
+/* CARDS */
 
 .cards{
   display:grid;
@@ -63,19 +74,21 @@ header p{
   background:var(--card);
   padding:15px;
   border-radius:17px;
-  box-shadow:0 3px 12px #0000000d;
+  box-shadow:0 3px 12px #00000015;
 }
 
 .card h3{
   margin:0 0 8px;
   color:var(--icon);
-  font-size:13px;
+  font-size:14px;
 }
 
 .number{
   font-size:21px;
   font-weight:bold;
 }
+
+/* NAV */
 
 .nav{
   display:grid;
@@ -88,28 +101,38 @@ header p{
   margin:0;
   background:white;
   color:var(--icon);
-  border:1px solid #dbe3f0;
+  border:2px solid transparent;
   padding:12px 5px;
   font-size:13px;
+  transition:.15s;
 }
 
 .nav button.active{
   background:var(--main);
   color:white;
-  transform:scale(.97);
+  border-color:var(--main);
+  transform:scale(.96);
 }
 
+.nav button:active{
+  transform:scale(.92);
+}
+
+/* SECTIONS */
+
 .section{
-  background:var(--card);
+  background:#ffffffee;
   padding:17px;
   border-radius:18px;
   margin-bottom:14px;
-  box-shadow:0 3px 12px #0000000d;
+  box-shadow:0 3px 12px #00000015;
 }
 
 .section h2{
   margin-top:0;
 }
+
+/* INPUT */
 
 input,select{
   width:100%;
@@ -121,6 +144,8 @@ input,select{
   background:white;
 }
 
+/* BUTTON */
+
 button{
   width:100%;
   border:0;
@@ -130,10 +155,11 @@ button{
   background:var(--main);
   color:white;
   font-size:15px;
+  transition:.12s;
 }
 
 button:active{
-  transform:scale(.97);
+  transform:scale(.96);
 }
 
 button.danger{
@@ -148,6 +174,8 @@ button.secondary{
   background:#64748b;
 }
 
+/* ROW */
+
 .row{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -157,6 +185,10 @@ button.secondary{
 .item{
   padding:13px 0;
   border-bottom:1px solid #eee;
+}
+
+.item:last-child{
+  border-bottom:0;
 }
 
 .small{
@@ -176,6 +208,8 @@ button.secondary{
   margin-top:12px;
 }
 
+/* PRODUCTS */
+
 .products-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -184,19 +218,19 @@ button.secondary{
 }
 
 .product-card{
-  background:var(--card);
-  border:2px solid transparent;
+  background:white;
+  border:3px solid transparent;
   border-radius:16px;
   padding:10px;
-  box-shadow:0 2px 10px #00000012;
+  box-shadow:0 2px 10px #00000015;
   text-align:center;
-  transition:.15s;
   cursor:pointer;
+  transition:.15s;
 }
 
 .product-card:active{
   border-color:var(--main);
-  transform:scale(.96);
+  transform:scale(.95);
 }
 
 .product-card img{
@@ -222,6 +256,41 @@ button.secondary{
   font-size:12px;
   color:#667085;
 }
+
+/* LOGIN */
+
+.login{
+  position:fixed;
+  inset:0;
+  background:var(--bg);
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:9999;
+}
+
+.login-box{
+  width:100%;
+  max-width:400px;
+  background:#ffffffee;
+  padding:25px;
+  border-radius:22px;
+  box-shadow:0 5px 30px #0003;
+}
+
+.login-logo{
+  text-align:center;
+  font-size:55px;
+}
+
+.login-box h2{
+  text-align:center;
+}
+
+/* MODAL */
 
 .modal{
   position:fixed;
@@ -259,35 +328,7 @@ button.secondary{
   font-size:25px;
 }
 
-.login{
-  position:fixed;
-  inset:0;
-  background:var(--bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:5000;
-}
-
-.login-box{
-  width:100%;
-  max-width:400px;
-  background:white;
-  padding:25px;
-  border-radius:22px;
-  box-shadow:0 5px 25px #0002;
-}
-
-.login-logo{
-  text-align:center;
-  font-size:55px;
-  margin-bottom:10px;
-}
-
-.login-box h2{
-  text-align:center;
-}
+/* INVOICE */
 
 .invoice{
   border:1px solid #ddd;
@@ -304,6 +345,10 @@ button.secondary{
   margin-bottom:12px;
 }
 
+.invoice-head h2{
+  margin:5px;
+}
+
 .invoice-total{
   font-size:22px;
   font-weight:bold;
@@ -312,180 +357,213 @@ button.secondary{
   padding-top:12px;
 }
 
-.setting-preview{
+/* SETTINGS */
+
+.setting-box{
   padding:15px;
+  background:#f8fafc;
   border-radius:15px;
-  background:var(--bg);
-  margin:10px 0;
-  text-align:center;
+  margin-bottom:15px;
+}
+
+.color-preview{
+  height:45px;
+  border-radius:10px;
+  margin-top:8px;
+  background:var(--main);
+}
+
+/* PRINT */
+
+@media print{
+
+  body>*{
+    display:none!important;
+  }
+
+  #printArea{
+    display:block!important;
+    position:absolute;
+    inset:0;
+    background:white;
+    padding:20px;
+  }
+
 }
 
 @media(max-width:500px){
 
-.nav{
-  grid-template-columns:repeat(3,1fr);
-}
+  .nav{
+    grid-template-columns:repeat(3,1fr);
+  }
 
-.products-grid{
-  grid-template-columns:repeat(2,1fr);
-}
-
-}
-
-@media print{
-
-body>*{
-  display:none!important;
-}
-
-#printArea{
-  display:block!important;
-  position:absolute;
-  inset:0;
-  background:white;
-  padding:20px;
-}
+  .products-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- تسجيل الدخول -->
+<!-- LOGIN -->
 
 <div id="loginScreen" class="login">
 
-<div class="login-box">
+  <div class="login-box">
 
-<div class="login-logo">🔐</div>
+    <div class="login-logo">🔐</div>
 
-<h2>تسجيل الدخول</h2>
+    <h2 id="loginShopName">
+      نظام التسيير
+    </h2>
 
-<input
-id="loginUser"
-placeholder="اسم المستخدم">
+    <p style="text-align:center">
+      تسجيل الدخول
+    </p>
 
-<input
-id="loginPass"
-type="password"
-placeholder="كلمة السر">
+    <input
+      id="loginUser"
+      placeholder="اسم المستخدم"
+      autocomplete="username">
 
-<button onclick="login()">
-🔓 دخول
-</button>
+    <input
+      id="loginPass"
+      type="password"
+      placeholder="كلمة السر"
+      autocomplete="current-password">
 
-<p
-id="loginError"
-style="color:red;text-align:center">
-</p>
+    <button onclick="login()">
+      🔓 دخول
+    </button>
 
-<p class="small" style="text-align:center">
-أول دخول: admin / 1234
-</p>
+    <p
+      id="loginError"
+      style="color:red;text-align:center">
+    </p>
+
+  </div>
 
 </div>
-</div>
 
 
-<!-- التطبيق -->
+<!-- APP -->
 
 <div id="app" class="hidden">
 
 <header>
 
-<h1 id="shopTitle">
-📊 نظام التسيير
-</h1>
+  <h1 id="shopTitle">
+    📊 نظام التسيير
+  </h1>
 
-<p>
-إدارة المنتجات والمبيعات والمصاريف والأرباح
-</p>
+  <p>
+    إدارة المنتجات والمبيعات والمصاريف والأرباح
+  </p>
 
 </header>
-
 
 <div class="container">
 
 
-<!-- البطاقات -->
+<!-- CARDS -->
 
 <div class="cards">
 
-<div class="card">
-<h3>💰 المبيعات</h3>
-<div class="number" id="salesTotal">
-0 دج
-</div>
+  <div class="card">
+    <h3>💰 المبيعات</h3>
+    <div
+      class="number"
+      id="salesTotal">
+      0 دج
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📦 المنتجات</h3>
+    <div
+      class="number"
+      id="productCount">
+      0
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💸 المصاريف</h3>
+    <div
+      class="number"
+      id="expenseTotal">
+      0 دج
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📈 الربح</h3>
+    <div
+      class="number"
+      id="profitTotal">
+      0 دج
+    </div>
+  </div>
+
 </div>
 
-<div class="card">
-<h3>📦 المنتجات</h3>
-<div class="number" id="productCount">
-0
-</div>
-</div>
 
-<div class="card">
-<h3>💸 المصاريف</h3>
-<div class="number" id="expenseTotal">
-0 دج
-</div>
-</div>
-
-<div class="card">
-<h3>📈 الربح</h3>
-<div class="number" id="profitTotal">
-0 دج
-</div>
-</div>
-
-</div>
-
-
-<!-- التنقل -->
+<!-- NAV -->
 
 <div class="nav">
 
-<button class="active"
-onclick="showSection('dashboard',this)">
+<button
+  class="active"
+  onclick="showSection('dashboard',this)">
 🏠 الرئيسية
 </button>
 
-<button onclick="showSection('productsSection',this)">
+<button
+  onclick="showSection('productsSection',this)">
 📦 المنتجات
 </button>
 
-<button onclick="showSection('salesSection',this)">
+<button
+  onclick="showSection('salesSection',this)">
 🛒 المبيعات
 </button>
 
-<button onclick="showSection('invoicesSection',this)">
+<button
+  onclick="showSection('invoicesSection',this)">
 🧾 الفواتير
 </button>
 
-<button onclick="showSection('expensesSection',this)">
+<button
+  onclick="showSection('expensesSection',this)">
 💸 المصاريف
 </button>
 
-<button onclick="showSection('customersSection',this)">
+<button
+  onclick="showSection('customersSection',this)">
 👥 الزبائن
 </button>
 
-<button onclick="showSection('statsSection',this)">
+<button
+  onclick="showSection('statsSection',this)">
 📊 الربح
 </button>
 
-<button onclick="showSection('settingsSection',this)">
+<button
+  onclick="showSection('settingsSection',this)">
 ⚙️ الإعدادات
 </button>
 
 </div>
 
 
-<!-- الرئيسية -->
+<!-- DASHBOARD -->
 
-<div id="dashboard" class="section">
+<div
+  id="dashboard"
+  class="section">
 
 <h2>🏠 لوحة التحكم</h2>
 
@@ -493,87 +571,96 @@ onclick="showSection('dashboard',this)">
 مرحبًا بك في نظام التسيير.
 </p>
 
-<p class="small">
-اضغط على المبيعات ثم اضغط على المنتج، وبعدها اختر الكمية.
-</p>
-
 <div class="item">
 📅 اليوم:
 <strong id="today"></strong>
 </div>
 
+<p class="small">
+اضغط على المنتجات لإضافة المنتجات،
+واضغط على المبيعات لتسجيل عملية بيع.
+</p>
+
 </div>
 
 
-<!-- المنتجات -->
+<!-- PRODUCTS -->
 
-<div id="productsSection" class="section hidden">
+<div
+  id="productsSection"
+  class="section hidden">
 
 <h2>📦 المنتجات</h2>
 
 <input
-id="productName"
-placeholder="اسم المنتج">
+  id="productName"
+  placeholder="اسم المنتج">
 
 <div class="row">
 
 <input
-id="buyPrice"
-type="number"
-placeholder="سعر الشراء">
+  id="buyPrice"
+  type="number"
+  placeholder="سعر الشراء">
 
 <input
-id="sellPrice"
-type="number"
-placeholder="سعر البيع">
+  id="sellPrice"
+  type="number"
+  placeholder="سعر البيع">
 
 </div>
 
 <input
-id="stock"
-type="number"
-placeholder="الكمية في المخزون">
+  id="stock"
+  type="number"
+  placeholder="الكمية في المخزون">
 
 <label class="small">
 🖼️ صورة المنتج
 </label>
 
 <input
-id="productImage"
-type="file"
-accept="image/*">
+  id="productImage"
+  type="file"
+  accept="image/*">
 
 <button onclick="addProduct()">
 ➕ إضافة المنتج
 </button>
 
 <div
-id="productsGrid"
-class="products-grid">
+  id="productsGrid"
+  class="products-grid">
 </div>
 
 </div>
 
 
-<!-- المبيعات -->
+<!-- SALES -->
 
-<div id="salesSection" class="section hidden">
+<div
+  id="salesSection"
+  class="section hidden">
 
 <h2>🛒 المبيعات</h2>
 
 <p class="small">
-اضغط على السلعة لإضافة عملية بيع.
+اضغط على السلعة ثم اختر الكمية.
 </p>
 
 <div
-id="saleProducts"
-class="products-grid">
+  id="saleProducts"
+  class="products-grid">
 </div>
 
 <div class="total">
+
 إجمالي المبيعات:
-<span id="salePageTotal">0</span>
+<span id="salePageTotal">
+0
+</span>
 دج
+
 </div>
 
 <div id="salesList"></div>
@@ -581,9 +668,11 @@ class="products-grid">
 </div>
 
 
-<!-- الفواتير -->
+<!-- INVOICES -->
 
-<div id="invoicesSection" class="section hidden">
+<div
+  id="invoicesSection"
+  class="section hidden">
 
 <h2>🧾 الفواتير</h2>
 
@@ -592,38 +681,44 @@ class="products-grid">
 </label>
 
 <input
-type="date"
-id="invoiceDate"
-onchange="refreshInvoices()">
+  type="date"
+  id="invoiceDate"
+  onchange="refreshInvoices()">
 
 <div id="invoicesList"></div>
 
 </div>
 
 
-<!-- المصاريف -->
+<!-- EXPENSES -->
 
-<div id="expensesSection" class="section hidden">
+<div
+  id="expensesSection"
+  class="section hidden">
 
 <h2>💸 المصاريف</h2>
 
 <input
-id="expenseName"
-placeholder="اسم المصروف">
+  id="expenseName"
+  placeholder="اسم المصروف">
 
 <input
-id="expenseAmount"
-type="number"
-placeholder="المبلغ بالدج">
+  id="expenseAmount"
+  type="number"
+  placeholder="المبلغ بالدج">
 
 <button onclick="addExpense()">
 ➕ إضافة المصروف
 </button>
 
 <div class="total">
+
 إجمالي المصاريف:
-<span id="expensePageTotal">0</span>
+<span id="expensePageTotal">
+0
+</span>
 دج
+
 </div>
 
 <div id="expensesList"></div>
@@ -631,19 +726,21 @@ placeholder="المبلغ بالدج">
 </div>
 
 
-<!-- الزبائن -->
+<!-- CUSTOMERS -->
 
-<div id="customersSection" class="section hidden">
+<div
+  id="customersSection"
+  class="section hidden">
 
 <h2>👥 الزبائن</h2>
 
 <input
-id="customerName"
-placeholder="اسم الزبون">
+  id="customerName"
+  placeholder="اسم الزبون">
 
 <input
-id="customerPhone"
-placeholder="رقم الهاتف">
+  id="customerPhone"
+  placeholder="رقم الهاتف">
 
 <button onclick="addCustomer()">
 ➕ إضافة الزبون
@@ -654,201 +751,298 @@ placeholder="رقم الهاتف">
 </div>
 
 
-<!-- الإحصائيات -->
+<!-- STATS -->
 
-<div id="statsSection" class="section hidden">
+<div
+  id="statsSection"
+  class="section hidden">
 
 <h2>📊 الإحصائيات</h2>
 
 <div class="item">
 💰 المبيعات:
-<strong id="statSales">0 دج</strong>
+<strong id="statSales">
+0 دج
+</strong>
 </div>
 
 <div class="item">
 💸 المصاريف:
-<strong id="statExpenses">0 دج</strong>
+<strong id="statExpenses">
+0 دج
+</strong>
 </div>
 
 <div class="item">
 📦 تكلفة البضاعة:
-<strong id="statCost">0 دج</strong>
+<strong id="statCost">
+0 دج
+</strong>
 </div>
 
 <div class="item">
 📈 صافي الربح:
-<strong id="statProfit">0 دج</strong>
+<strong id="statProfit">
+0 دج
+</strong>
 </div>
 
 <button
-class="danger"
-onclick="clearAllData()">
+  class="danger"
+  onclick="clearAllData()">
 ⚠️ حذف جميع البيانات
 </button>
 
 </div>
 
 
-<!-- الإعدادات -->
+<!-- SETTINGS -->
 
-<div id="settingsSection" class="section hidden">
+<div
+  id="settingsSection"
+  class="section hidden">
 
 <h2>⚙️ الإعدادات</h2>
 
 
-<h3>🏪 معلومات المحل</h3>
+<!-- SHOP -->
+
+<div class="setting-box">
+
+<h3>🏪 اسم المحل</h3>
 
 <input
-id="settingsShopName"
-placeholder="اسم المحل">
+  id="settingsShopName"
+  placeholder="اكتب اسم المحل">
 
 <button onclick="saveShopName()">
 💾 حفظ اسم المحل
 </button>
 
+</div>
 
-<h3>🎨 لون الأيقونات والنظام</h3>
+
+<!-- COLOR -->
+
+<div class="setting-box">
+
+<h3>🎨 لون النظام والأيقونات</h3>
+
+<p class="small">
+اختر اللون الذي تريد استخدامه للأزرار
+والأيقونات والعناصر الرئيسية.
+</p>
 
 <input
-id="mainColor"
-type="color"
-value="#2563eb">
+  id="mainColor"
+  type="color"
+  value="#2563eb">
 
-<div class="setting-preview">
-<span style="color:var(--icon);font-size:30px">
-🏠 📦 🛒 💰 ⚙️
-</span>
-<br>
-معاينة لون الأيقونات
+<div
+  id="colorPreview"
+  class="color-preview">
 </div>
 
 <button onclick="saveColor()">
-🎨 حفظ لون الأيقونات
+🎨 تطبيق اللون
 </button>
 
+</div>
+
+
+<!-- BACKGROUND COLOR -->
+
+<div class="setting-box">
 
 <h3>🖼️ خلفية النظام</h3>
 
-<input
-id="bgColor"
-type="color"
-value="#f4f6f9">
+<p class="small">
+يمكنك اختيار لون للخلفية.
+</p>
 
-<button onclick="saveBackground()">
-🖼️ حفظ الخلفية
+<input
+  id="bgColor"
+  type="color"
+  value="#f4f6f9">
+
+<button onclick="saveBackgroundColor()">
+🖼️ تطبيق لون الخلفية
 </button>
 
+</div>
 
-<h3>🔐 الحساب</h3>
+
+<!-- BACKGROUND IMAGE -->
+
+<div class="setting-box">
+
+<h3>🌄 صورة خلفية</h3>
+
+<p class="small">
+اختر صورة من صور الهاتف لتصبح خلفية النظام.
+</p>
 
 <input
-id="newUsername"
-placeholder="اسم مستخدم جديد">
+  id="backgroundImage"
+  type="file"
+  accept="image/*">
+
+<button onclick="saveBackgroundImage()">
+🌄 تطبيق صورة الخلفية
+</button>
+
+<button
+  class="secondary"
+  onclick="removeBackgroundImage()">
+🗑️ إزالة صورة الخلفية
+</button>
+
+</div>
+
+
+<!-- LOGIN -->
+
+<div class="setting-box">
+
+<h3>🔐 تغيير بيانات الدخول</h3>
 
 <input
-id="newPassword"
-type="password"
-placeholder="كلمة سر جديدة">
+  id="newUsername"
+  placeholder="اسم المستخدم الجديد">
+
+<input
+  id="newPassword"
+  type="password"
+  placeholder="كلمة السر الجديدة">
+
+<input
+  id="confirmPassword"
+  type="password"
+  placeholder="تأكيد كلمة السر">
 
 <button onclick="changeLogin()">
-🔐 تغيير اسم المستخدم وكلمة السر
+🔐 حفظ بيانات الدخول
 </button>
+
+<p class="small">
+بعد الحفظ ستستخدم البيانات الجديدة
+في تسجيل الدخول القادم.
+</p>
+
+</div>
 
 
 <button
-class="secondary"
-onclick="logout()">
+  class="secondary"
+  onclick="logout()">
 🚪 تسجيل الخروج
 </button>
 
 </div>
 
 
-<div
-id="printArea"
-class="hidden">
-</div>
-
-</div>
-</div>
-
-
-<!-- نافذة الكمية -->
+<!-- PRINT AREA -->
 
 <div
-id="saleModal"
-class="modal hidden">
+  id="printArea"
+  class="hidden">
+</div>
+
+</div>
+</div>
+
+
+<!-- SALE MODAL -->
+
+<div
+  id="saleModal"
+  class="modal hidden">
 
 <div class="modal-box">
 
 <h2 id="modalProductName"></h2>
 
 <div
-class="small"
-id="modalStock">
+  class="small"
+  id="modalStock">
 </div>
 
 <div
-class="qty"
-id="modalQty">
+  class="qty"
+  id="modalQty">
 1
 </div>
 
 <div class="qty-row">
 
 <button
-class="secondary"
-onclick="changeQty(-1)">
+  class="secondary"
+  onclick="changeQty(-1)">
 −
 </button>
 
 <button
-onclick="changeQty(1)">
+  onclick="changeQty(1)">
 +
 </button>
 
 </div>
 
 <button
-class="success"
-onclick="confirmSale()">
+  class="success"
+  onclick="confirmSale()">
 💰 تأكيد البيع
 </button>
 
 <button
-class="danger"
-onclick="closeSaleModal()">
+  class="danger"
+  onclick="closeSaleModal()">
 إلغاء
 </button>
 
 </div>
+
 </div>
 
 
 <script>
 
 /* =========================
-البيانات
+   DATA
 ========================= */
 
 let products =
-JSON.parse(localStorage.getItem("products") || "[]");
+JSON.parse(
+  localStorage.getItem("products") || "[]"
+);
 
 let sales =
-JSON.parse(localStorage.getItem("sales") || "[]");
+JSON.parse(
+  localStorage.getItem("sales") || "[]"
+);
 
 let expenses =
-JSON.parse(localStorage.getItem("expenses") || "[]");
+JSON.parse(
+  localStorage.getItem("expenses") || "[]"
+);
 
 let customers =
-JSON.parse(localStorage.getItem("customers") || "[]");
+JSON.parse(
+  localStorage.getItem("customers") || "[]"
+);
 
 let invoices =
-JSON.parse(localStorage.getItem("invoices") || "[]");
+JSON.parse(
+  localStorage.getItem("invoices") || "[]"
+);
 
 let settings =
-JSON.parse(localStorage.getItem("settings") || "{}");
+JSON.parse(
+  localStorage.getItem("settings") || "{}"
+);
 
+
+/* DEFAULT LOGIN */
 
 let defaultUser =
 settings.username || "admin";
@@ -862,57 +1056,82 @@ let selectedQty=1;
 
 
 /* =========================
-الحفظ
+   SAVE
 ========================= */
 
 function saveData(){
 
 localStorage.setItem(
 "products",
-JSON.stringify(products));
+JSON.stringify(products)
+);
 
 localStorage.setItem(
 "sales",
-JSON.stringify(sales));
+JSON.stringify(sales)
+);
 
 localStorage.setItem(
 "expenses",
-JSON.stringify(expenses));
+JSON.stringify(expenses)
+);
 
 localStorage.setItem(
 "customers",
-JSON.stringify(customers));
+JSON.stringify(customers)
+);
 
 localStorage.setItem(
 "invoices",
-JSON.stringify(invoices));
+JSON.stringify(invoices)
+);
 
 }
 
 
 /* =========================
-المال
+   SAVE SETTINGS
+========================= */
+
+function saveSettings(){
+
+localStorage.setItem(
+"settings",
+JSON.stringify(settings)
+);
+
+}
+
+
+/* =========================
+   MONEY
 ========================= */
 
 function money(n){
 
 return Number(n || 0)
-.toLocaleString("ar-DZ")+" دج";
+.toLocaleString("ar-DZ")
++" دج";
 
 }
 
 
 /* =========================
-الدخول
+   LOGIN
 ========================= */
 
 function login(){
 
 const user=
-document.getElementById("loginUser").value.trim();
+document
+.getElementById("loginUser")
+.value
+.trim();
 
 const pass=
-document.getElementById("loginPass").value;
+document
+.getElementById("loginPass")
+.value;
 
 if(
 user===defaultUser &&
@@ -927,6 +1146,10 @@ document
 .getElementById("app")
 .classList.remove("hidden");
 
+document
+.getElementById("loginError")
+.textContent="";
+
 refresh();
 
 }else{
@@ -934,15 +1157,30 @@ refresh();
 document
 .getElementById("loginError")
 .textContent=
-"اسم المستخدم أو كلمة السر غير صحيحة";
+"❌ اسم المستخدم أو كلمة السر غير صحيحة";
 
 }
 
 }
+
+
+/* ENTER LOGIN */
+
+document
+.getElementById("loginPass")
+.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="Enter"){
+login();
+}
+
+});
 
 
 /* =========================
-الخروج
+   LOGOUT
 ========================= */
 
 function logout(){
@@ -955,22 +1193,28 @@ document
 .getElementById("loginScreen")
 .classList.remove("hidden");
 
-document.getElementById("loginUser").value="";
-document.getElementById("loginPass").value="";
+document
+.getElementById("loginUser")
+.value="";
+
+document
+.getElementById("loginPass")
+.value="";
 
 }
 
 
 /* =========================
-التنقل
+   NAVIGATION
 ========================= */
 
 function showSection(id,btn){
 
 document
 .querySelectorAll(".section")
-.forEach(s=>
-s.classList.add("hidden"));
+.forEach(
+s=>s.classList.add("hidden")
+);
 
 document
 .getElementById(id)
@@ -978,8 +1222,9 @@ document
 
 document
 .querySelectorAll(".nav button")
-.forEach(b=>
-b.classList.remove("active"));
+.forEach(
+b=>b.classList.remove("active")
+);
 
 btn.classList.add("active");
 
@@ -989,32 +1234,41 @@ refresh();
 
 
 /* =========================
-إضافة منتج
+   ADD PRODUCT
 ========================= */
 
 function addProduct(){
 
 const name=
-document.getElementById("productName")
-.value.trim();
+document
+.getElementById("productName")
+.value
+.trim();
 
 const buy=
 Number(
-document.getElementById("buyPrice").value
+document
+.getElementById("buyPrice")
+.value
 );
 
 const sell=
 Number(
-document.getElementById("sellPrice").value
+document
+.getElementById("sellPrice")
+.value
 );
 
 const stock=
 Number(
-document.getElementById("stock").value
+document
+.getElementById("stock")
+.value
 );
 
 const file=
-document.getElementById("productImage")
+document
+.getElementById("productImage")
 .files[0];
 
 
@@ -1025,7 +1279,10 @@ sell<=0 ||
 stock<0
 ){
 
-alert("أدخل معلومات المنتج بشكل صحيح");
+alert(
+"أدخل معلومات المنتج بشكل صحيح"
+);
+
 return;
 
 }
@@ -1045,28 +1302,48 @@ sell:sell,
 
 stock:stock,
 
-image:image || ""
+image:image||""
 
 });
 
 saveData();
 
-document.getElementById("productName").value="";
-document.getElementById("buyPrice").value="";
-document.getElementById("sellPrice").value="";
-document.getElementById("stock").value="";
-document.getElementById("productImage").value="";
+document
+.getElementById("productName")
+.value="";
+
+document
+.getElementById("buyPrice")
+.value="";
+
+document
+.getElementById("sellPrice")
+.value="";
+
+document
+.getElementById("stock")
+.value="";
+
+document
+.getElementById("productImage")
+.value="";
 
 refresh();
+
+alert(
+"✅ تم إضافة المنتج"
+);
 
 }
 
 
 if(file){
 
-const reader=new FileReader();
+const reader=
+new FileReader();
 
-reader.onload=function(e){
+reader.onload=
+function(e){
 
 finish(e.target.result);
 
@@ -1084,14 +1361,28 @@ finish("");
 
 
 /* =========================
-بطاقة المنتج
+   PRODUCT CARD
 ========================= */
 
 function productCard(p){
 
 const image=
 p.image ||
-"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150'><rect width='100%' height='100%' fill='%23eee'/><text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-size='20'>📦</text></svg>";
+"data:image/svg+xml;charset=UTF-8,"+
+encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg"
+width="300"
+height="200">
+<rect width="100%" height="100%"
+fill="#eeeeee"/>
+<text x="50%" y="50%"
+text-anchor="middle"
+dominant-baseline="middle"
+font-size="35">
+📦
+</text>
+</svg>
+`);
 
 return `
 
@@ -1102,7 +1393,7 @@ onclick="openSaleModal(${p.id})">
 <img src="${image}">
 
 <div class="product-name">
-${p.name}
+${escapeHTML(p.name)}
 </div>
 
 <div class="product-price">
@@ -1121,19 +1412,40 @@ ${money(p.sell)}
 
 
 /* =========================
-نافذة البيع
+   SAFE TEXT
+========================= */
+
+function escapeHTML(text){
+
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   SALE MODAL
 ========================= */
 
 function openSaleModal(id){
 
 const p=
-products.find(x=>x.id===id);
+products.find(
+x=>x.id===id
+);
 
 if(!p)return;
 
 if(p.stock<=0){
 
-alert("هذا المنتج غير متوفر في المخزون");
+alert(
+"❌ هذا المنتج غير متوفر في المخزون"
+);
+
 return;
 
 }
@@ -1170,12 +1482,17 @@ selectedQty+=amount;
 if(selectedQty<1)
 selectedQty=1;
 
-if(selectedQty>selectedProduct.stock)
-selectedQty=selectedProduct.stock;
+if(
+selectedQty>
+selectedProduct.stock
+)
+selectedQty=
+selectedProduct.stock;
 
 document
 .getElementById("modalQty")
-.textContent=selectedQty;
+.textContent=
+selectedQty;
 
 }
 
@@ -1197,9 +1514,14 @@ if(!selectedProduct)return;
 
 const p=selectedProduct;
 
-if(selectedQty>p.stock){
+if(
+selectedQty>p.stock
+){
 
-alert("المخزون غير كاف");
+alert(
+"❌ المخزون غير كاف"
+);
+
 return;
 
 }
@@ -1208,41 +1530,56 @@ p.stock-=selectedQty;
 
 const id=Date.now();
 
-const now=new Date();
+const now=
+new Date();
 
 const date=
 now.toLocaleString("ar-DZ");
 
 const day=
-now.toISOString().slice(0,10);
+now.toISOString()
+.slice(0,10);
 
 sales.push({
 
 id:id,
+
 productId:p.id,
+
 name:p.name,
+
 quantity:selectedQty,
+
 price:p.sell,
+
 buy:p.buy,
+
 date:date,
+
 day:day
 
 });
-
 
 invoices.push({
 
 id:id,
+
 number:"INV-"+id,
+
 product:p.name,
+
 quantity:selectedQty,
+
 price:p.sell,
-total:p.sell*selectedQty,
+
+total:
+p.sell*selectedQty,
+
 date:date,
+
 day:day
 
 });
-
 
 saveData();
 
@@ -1251,31 +1588,43 @@ closeSaleModal();
 refresh();
 
 alert(
-"تم تسجيل البيع\n"+
-p.name+" × "+selectedQty
+"✅ تم تسجيل البيع\n"+
+p.name+
+" × "+
+selectedQty
 );
 
 }
 
 
 /* =========================
-المصاريف
+   EXPENSE
 ========================= */
 
 function addExpense(){
 
 const name=
-document.getElementById("expenseName")
-.value.trim();
+document
+.getElementById("expenseName")
+.value
+.trim();
 
 const amount=
 Number(
-document.getElementById("expenseAmount").value
+document
+.getElementById("expenseAmount")
+.value
 );
 
-if(!name || amount<=0){
+if(
+!name ||
+amount<=0
+){
 
-alert("أدخل اسم المصروف والمبلغ");
+alert(
+"أدخل اسم المصروف والمبلغ"
+);
+
 return;
 
 }
@@ -1285,17 +1634,26 @@ const now=new Date();
 expenses.push({
 
 id:Date.now(),
+
 name:name,
+
 amount:amount,
+
 date:now.toLocaleString("ar-DZ"),
+
 day:now.toISOString().slice(0,10)
 
 });
 
 saveData();
 
-document.getElementById("expenseName").value="";
-document.getElementById("expenseAmount").value="";
+document
+.getElementById("expenseName")
+.value="";
+
+document
+.getElementById("expenseAmount")
+.value="";
 
 refresh();
 
@@ -1303,22 +1661,29 @@ refresh();
 
 
 /* =========================
-الزبائن
+   CUSTOMER
 ========================= */
 
 function addCustomer(){
 
 const name=
-document.getElementById("customerName")
-.value.trim();
+document
+.getElementById("customerName")
+.value
+.trim();
 
 const phone=
-document.getElementById("customerPhone")
-.value.trim();
+document
+.getElementById("customerPhone")
+.value
+.trim();
 
 if(!name){
 
-alert("أدخل اسم الزبون");
+alert(
+"أدخل اسم الزبون"
+);
+
 return;
 
 }
@@ -1326,15 +1691,22 @@ return;
 customers.push({
 
 id:Date.now(),
+
 name:name,
+
 phone:phone
 
 });
 
 saveData();
 
-document.getElementById("customerName").value="";
-document.getElementById("customerPhone").value="";
+document
+.getElementById("customerName")
+.value="";
+
+document
+.getElementById("customerPhone")
+.value="";
 
 refresh();
 
@@ -1342,17 +1714,24 @@ refresh();
 
 
 /* =========================
-الحذف
+   DELETE
 ========================= */
 
 function deleteProduct(id){
 
-if(confirm("هل تريد حذف المنتج؟")){
+if(
+confirm(
+"هل تريد حذف هذا المنتج؟"
+)
+){
 
 products=
-products.filter(p=>p.id!==id);
+products.filter(
+p=>p.id!==id
+);
 
 saveData();
+
 refresh();
 
 }
@@ -1363,9 +1742,12 @@ refresh();
 function deleteExpense(id){
 
 expenses=
-expenses.filter(e=>e.id!==id);
+expenses.filter(
+e=>e.id!==id
+);
 
 saveData();
+
 refresh();
 
 }
@@ -1374,52 +1756,64 @@ refresh();
 function deleteCustomer(id){
 
 customers=
-customers.filter(c=>c.id!==id);
+customers.filter(
+c=>c.id!==id
+);
 
 saveData();
+
 refresh();
 
 }
 
 
 /* =========================
-الفواتير
+   INVOICES
 ========================= */
 
 function refreshInvoices(){
 
 const date=
-document.getElementById("invoiceDate").value;
+document
+.getElementById("invoiceDate")
+.value;
 
 let list=invoices;
 
 if(date){
 
 list=
-invoices.filter(i=>i.day===date);
+invoices.filter(
+i=>i.day===date
+);
 
 }
 
 const box=
-document.getElementById("invoicesList");
+document
+.getElementById("invoicesList");
 
 if(!list.length){
 
 box.innerHTML=
-'<div class="empty">لا توجد فواتير لهذا التاريخ</div>';
+'<div class="empty">لا توجد فواتير لهذا اليوم</div>';
 
 return;
 
 }
 
 box.innerHTML=
-[...list].reverse().map(i=>`
+[...list]
+.reverse()
+.map(i=>`
 
 <div class="invoice">
 
 <div class="invoice-head">
 
-<h3>🧾 ${i.number}</h3>
+<h3>
+🧾 ${i.number}
+</h3>
 
 <div class="small">
 ${i.date}
@@ -1429,7 +1823,9 @@ ${i.date}
 
 <div>
 📦 السلعة:
-<strong>${i.product}</strong>
+<strong>
+${escapeHTML(i.product)}
+</strong>
 </div>
 
 <div>
@@ -1447,71 +1843,107 @@ ${money(i.price)}
 ${money(i.total)}
 </div>
 
-<button onclick="printInvoice(${i.id})">
+<button
+onclick="printInvoice(${i.id})">
 🖨️ طباعة الفاتورة
 </button>
 
 </div>
 
-`).join("");
+`)
+.join("");
 
 }
 
 
 /* =========================
-طباعة الفاتورة
+   PRINT
 ========================= */
 
 function printInvoice(id){
 
 const i=
-invoices.find(x=>x.id===id);
+invoices.find(
+x=>x.id===id
+);
 
 if(!i)return;
 
 const area=
-document.getElementById("printArea");
+document
+.getElementById("printArea");
 
 area.innerHTML=`
 
-<div class="invoice-head">
+<div
+style="
+font-family:Arial;
+direction:rtl;
+max-width:500px;
+margin:auto;
+text-align:right;
+">
+
+<div
+style="
+text-align:center;
+border-bottom:2px dashed #222;
+padding-bottom:15px;
+">
+
+<div style="font-size:40px">
+🧾
+</div>
 
 <h2>
-${settings.shopName || "نظام التسيير"}
+${escapeHTML(
+settings.shopName ||
+"نظام التسيير"
+)}
 </h2>
 
-<div>🧾 فاتورة بيع</div>
+<strong>
+فاتورة بيع
+</strong>
 
-<div>
-رقم الفاتورة: ${i.number}
-</div>
+<p>
+رقم الفاتورة:
+${i.number}
+</p>
 
-<div>
-التاريخ: ${i.date}
-</div>
+<p>
+التاريخ:
+${i.date}
+</p>
 
-</div>
-
-<div>
-📦 السلعة:
-<strong>${i.product}</strong>
 </div>
 
 <br>
 
-<div>
+<p>
+📦 السلعة:
+<strong>
+${escapeHTML(i.product)}
+</strong>
+</p>
+
+<p>
 🔢 الكمية:
 ${i.quantity}
-</div>
+</p>
 
-<br>
-
-<div>
+<p>
 💰 سعر الوحدة:
 ${money(i.price)}
-</div>
+</p>
 
-<div class="invoice-total">
+<div
+style="
+border-top:2px dashed #222;
+padding-top:15px;
+font-size:22px;
+font-weight:bold;
+">
 
 الإجمالي:
 ${money(i.total)}
@@ -1526,118 +1958,262 @@ ${money(i.total)}
 شكرًا لزيارتكم ❤️
 </p>
 
+<p
+style="
+text-align:center;
+font-size:12px;
+">
+
+تفقد السلعة قبل مغادرة المحل
+
+</p>
+
+</div>
+
 `;
 
 area.classList.remove("hidden");
 
 window.print();
 
-setTimeout(function(){
-
+setTimeout(
+()=>{
 area.classList.add("hidden");
-
-},1000);
+},
+1000
+);
 
 }
 
 
 /* =========================
-الإعدادات
+   SHOP NAME
 ========================= */
 
 function saveShopName(){
 
 const name=
-document.getElementById("settingsShopName")
-.value.trim();
+document
+.getElementById("settingsShopName")
+.value
+.trim();
 
 if(!name){
 
-alert("اكتب اسم المحل");
+alert(
+"اكتب اسم المحل"
+);
+
 return;
 
 }
 
 settings.shopName=name;
 
-localStorage.setItem(
-"settings",
-JSON.stringify(settings)
-);
+saveSettings();
 
 document
 .getElementById("shopTitle")
-.textContent="📊 "+name;
+.textContent=
+"📊 "+name;
 
-alert("تم حفظ اسم المحل");
+document
+.getElementById("loginShopName")
+.textContent=
+name;
+
+alert(
+"✅ تم حفظ اسم المحل"
+);
 
 }
 
 
-/* تغيير اللون */
+/* =========================
+   COLOR
+========================= */
 
 function saveColor(){
 
 const color=
-document.getElementById("mainColor").value;
+document
+.getElementById("mainColor")
+.value;
 
-document.documentElement
-.style.setProperty("--main",color);
+document
+.documentElement
+.style
+.setProperty(
+"--main",
+color
+);
 
-document.documentElement
-.style.setProperty("--icon",color);
+document
+.documentElement
+.style
+.setProperty(
+"--icon",
+color
+);
 
 settings.color=color;
-settings.iconColor=color;
 
-localStorage.setItem(
-"settings",
-JSON.stringify(settings)
+saveSettings();
+
+document
+.getElementById("colorPreview")
+.style.background=
+color;
+
+alert(
+"🎨 تم تغيير لون النظام والأيقونات"
 );
-
-alert("تم تغيير لون النظام والأيقونات");
 
 }
 
 
-/* تغيير الخلفية */
+/* =========================
+   BACKGROUND COLOR
+========================= */
 
-function saveBackground(){
+function saveBackgroundColor(){
 
 const color=
-document.getElementById("bgColor").value;
+document
+.getElementById("bgColor")
+.value;
 
-document.documentElement
-.style.setProperty("--bg",color);
-
-settings.bg=color;
-
-localStorage.setItem(
-"settings",
-JSON.stringify(settings)
+document
+.documentElement
+.style
+.setProperty(
+"--bg",
+color
 );
 
-alert("تم تغيير الخلفية");
+settings.bgColor=color;
+
+saveSettings();
+
+alert(
+"🖼️ تم تغيير لون الخلفية"
+);
 
 }
 
 
-/* تغيير كلمة السر */
+/* =========================
+   BACKGROUND IMAGE
+========================= */
+
+function saveBackgroundImage(){
+
+const file=
+document
+.getElementById("backgroundImage")
+.files[0];
+
+if(!file){
+
+alert(
+"اختر صورة من الهاتف أولاً"
+);
+
+return;
+
+}
+
+const reader=
+new FileReader();
+
+reader.onload=
+function(e){
+
+const image=e.target.result;
+
+document.body.style.backgroundImage=
+"url('"+image+"')";
+
+document
+.getElementById("loginScreen")
+.style.backgroundImage=
+"url('"+image+"')";
+
+settings.backgroundImage=image;
+
+saveSettings();
+
+alert(
+"✅ تم حفظ صورة الخلفية"
+);
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+/* =========================
+   REMOVE BACKGROUND
+========================= */
+
+function removeBackgroundImage(){
+
+document.body.style.backgroundImage="";
+
+document
+.getElementById("loginScreen")
+.style.backgroundImage="";
+
+delete settings.backgroundImage;
+
+saveSettings();
+
+alert(
+"🗑️ تمت إزالة صورة الخلفية"
+);
+
+}
+
+
+/* =========================
+   CHANGE LOGIN
+========================= */
 
 function changeLogin(){
 
 const user=
-document.getElementById("newUsername")
-.value.trim();
+document
+.getElementById("newUsername")
+.value
+.trim();
 
 const pass=
-document.getElementById("newPassword")
+document
+.getElementById("newPassword")
 .value;
 
-if(!user || !pass){
+const confirmPass=
+document
+.getElementById("confirmPassword")
+.value;
+
+
+if(!user){
 
 alert(
-"أدخل اسم المستخدم وكلمة السر الجديدة"
+"أدخل اسم المستخدم الجديد"
+);
+
+return;
+
+}
+
+if(!pass){
+
+alert(
+"أدخل كلمة السر الجديدة"
 );
 
 return;
@@ -1647,36 +2223,57 @@ return;
 if(pass.length<4){
 
 alert(
-"كلمة السر يجب أن تكون 4 أحرف أو أرقام على الأقل"
+"كلمة السر يجب أن تكون 4 أحرف على الأقل"
 );
 
 return;
 
 }
 
+if(pass!==confirmPass){
+
+alert(
+"❌ كلمتا السر غير متطابقتين"
+);
+
+return;
+
+}
+
+
 settings.username=user;
+
 settings.password=pass;
 
 defaultUser=user;
+
 defaultPass=pass;
 
-localStorage.setItem(
-"settings",
-JSON.stringify(settings)
-);
+saveSettings();
 
-document.getElementById("newUsername").value="";
-document.getElementById("newPassword").value="";
+
+document
+.getElementById("newUsername")
+.value="";
+
+document
+.getElementById("newPassword")
+.value="";
+
+document
+.getElementById("confirmPassword")
+.value="";
+
 
 alert(
-"تم تغيير اسم المستخدم وكلمة السر بنجاح"
+"✅ تم تغيير اسم المستخدم وكلمة السر بنجاح"
 );
 
 }
 
 
 /* =========================
-التحديث
+   REFRESH
 ========================= */
 
 function refresh(){
@@ -1684,62 +2281,88 @@ function refresh(){
 const salesTotal=
 sales.reduce(
 (sum,s)=>
-sum+s.price*s.quantity,0
+sum+s.price*s.quantity,
+0
 );
 
 const expenseTotal=
 expenses.reduce(
 (sum,e)=>
-sum+e.amount,0
+sum+e.amount,
+0
 );
 
 const costTotal=
 sales.reduce(
 (sum,s)=>
-sum+s.buy*s.quantity,0
+sum+s.buy*s.quantity,
+0
 );
 
 const profit=
-salesTotal-costTotal-expenseTotal;
+salesTotal-
+costTotal-
+expenseTotal;
 
 
-document.getElementById("salesTotal")
-.textContent=money(salesTotal);
+document
+.getElementById("salesTotal")
+.textContent=
+money(salesTotal);
 
-document.getElementById("productCount")
-.textContent=products.length;
+document
+.getElementById("productCount")
+.textContent=
+products.length;
 
-document.getElementById("expenseTotal")
-.textContent=money(expenseTotal);
+document
+.getElementById("expenseTotal")
+.textContent=
+money(expenseTotal);
 
-document.getElementById("profitTotal")
-.textContent=money(profit);
+document
+.getElementById("profitTotal")
+.textContent=
+money(profit);
 
-document.getElementById("salePageTotal")
+
+document
+.getElementById("salePageTotal")
 .textContent=
 salesTotal.toLocaleString("ar-DZ");
 
-document.getElementById("expensePageTotal")
+document
+.getElementById("expensePageTotal")
 .textContent=
 expenseTotal.toLocaleString("ar-DZ");
 
-document.getElementById("statSales")
-.textContent=money(salesTotal);
 
-document.getElementById("statExpenses")
-.textContent=money(expenseTotal);
+document
+.getElementById("statSales")
+.textContent=
+money(salesTotal);
 
-document.getElementById("statCost")
-.textContent=money(costTotal);
+document
+.getElementById("statExpenses")
+.textContent=
+money(expenseTotal);
 
-document.getElementById("statProfit")
-.textContent=money(profit);
+document
+.getElementById("statCost")
+.textContent=
+money(costTotal);
+
+document
+.getElementById("statProfit")
+.textContent=
+money(profit);
 
 
-/* المنتجات */
+/* PRODUCTS */
 
 const pg=
-document.getElementById("productsGrid");
+document
+.getElementById("productsGrid");
 
 if(!products.length){
 
@@ -1749,15 +2372,18 @@ pg.innerHTML=
 }else{
 
 pg.innerHTML=
-products.map(productCard).join("");
+products
+.map(productCard)
+.join("");
 
 }
 
 
-/* المبيعات */
+/* SALES PRODUCTS */
 
 const sg=
-document.getElementById("saleProducts");
+document
+.getElementById("saleProducts");
 
 if(!products.length){
 
@@ -1767,15 +2393,18 @@ sg.innerHTML=
 }else{
 
 sg.innerHTML=
-products.map(productCard).join("");
+products
+.map(productCard)
+.join("");
 
 }
 
 
-/* سجل المبيعات */
+/* SALES */
 
 const sl=
-document.getElementById("salesList");
+document
+.getElementById("salesList");
 
 if(!sales.length){
 
@@ -1785,11 +2414,16 @@ sl.innerHTML=
 }else{
 
 sl.innerHTML=
-[...sales].reverse().map(s=>`
+[...sales]
+.reverse()
+.map(s=>`
 
 <div class="item">
 
-🛒 <strong>${s.name}</strong>
+🛒
+<strong>
+${escapeHTML(s.name)}
+</strong>
 
 <br>
 
@@ -1806,15 +2440,17 @@ ${s.date}
 
 </div>
 
-`).join("");
+`)
+.join("");
 
 }
 
 
-/* المصاريف */
+/* EXPENSES */
 
 const el=
-document.getElementById("expensesList");
+document
+.getElementById("expensesList");
 
 if(!expenses.length){
 
@@ -1824,11 +2460,17 @@ el.innerHTML=
 }else{
 
 el.innerHTML=
-[...expenses].reverse().map(e=>`
+[...expenses]
+.reverse()
+.map(e=>`
 
 <div class="item">
 
-💸 <strong>${e.name}</strong>
+💸
+<strong>
+${escapeHTML(e.name)}
+</strong>
+
 —
 ${money(e.amount)}
 
@@ -1846,15 +2488,17 @@ onclick="deleteExpense(${e.id})">
 
 </div>
 
-`).join("");
+`)
+.join("");
 
 }
 
 
-/* الزبائن */
+/* CUSTOMERS */
 
 const cl=
-document.getElementById("customersList");
+document
+.getElementById("customersList");
 
 if(!customers.length){
 
@@ -1864,16 +2508,23 @@ cl.innerHTML=
 }else{
 
 cl.innerHTML=
-customers.map(c=>`
+customers
+.map(c=>`
 
 <div class="item">
 
-👤 <strong>${c.name}</strong>
+👤
+<strong>
+${escapeHTML(c.name)}
+</strong>
 
 <br>
 
 <span class="small">
-${c.phone || "بدون رقم هاتف"}
+${escapeHTML(
+c.phone ||
+"بدون رقم هاتف"
+)}
 </span>
 
 <button
@@ -1884,10 +2535,10 @@ onclick="deleteCustomer(${c.id})">
 
 </div>
 
-`).join("");
+`)
+.join("");
 
 }
-
 
 refreshInvoices();
 
@@ -1895,14 +2546,16 @@ refreshInvoices();
 
 
 /* =========================
-حذف جميع البيانات
+   CLEAR DATA
 ========================= */
 
 function clearAllData(){
 
-if(confirm(
-"سيتم حذف جميع المنتجات والمبيعات والمصاريف والزبائن والفواتير. هل أنت متأكد؟"
-)){
+if(
+confirm(
+"⚠️ سيتم حذف المنتجات والمبيعات والمصاريف والزبائن والفواتير. هل أنت متأكد؟"
+)
+){
 
 products=[];
 sales=[];
@@ -1914,7 +2567,9 @@ saveData();
 
 refresh();
 
-alert("تم حذف جميع البيانات");
+alert(
+"تم حذف جميع البيانات"
+);
 
 }
 
@@ -1922,7 +2577,7 @@ alert("تم حذف جميع البيانات");
 
 
 /* =========================
-تحميل الإعدادات
+   LOAD SETTINGS
 ========================= */
 
 function loadSettings(){
@@ -1935,6 +2590,11 @@ document
 "📊 "+settings.shopName;
 
 document
+.getElementById("loginShopName")
+.textContent=
+settings.shopName;
+
+document
 .getElementById("settingsShopName")
 .value=
 settings.shopName;
@@ -1944,40 +2604,66 @@ settings.shopName;
 
 if(settings.color){
 
-document.documentElement
-.style.setProperty("--main",settings.color);
+document
+.documentElement
+.style
+.setProperty(
+"--main",
+settings.color
+);
 
-document.documentElement
-.style.setProperty("--icon",settings.color);
+document
+.documentElement
+.style
+.setProperty(
+"--icon",
+settings.color
+);
 
 document
 .getElementById("mainColor")
 .value=
 settings.color;
 
+document
+.getElementById("colorPreview")
+.style.background=
+settings.color;
+
 }
 
 
-if(settings.iconColor){
+if(settings.bgColor){
 
-document.documentElement
-.style.setProperty(
-"--icon",
-settings.iconColor
+document
+.documentElement
+.style
+.setProperty(
+"--bg",
+settings.bgColor
 );
-
-}
-
-
-if(settings.bg){
-
-document.documentElement
-.style.setProperty("--bg",settings.bg);
 
 document
 .getElementById("bgColor")
 .value=
-settings.bg;
+settings.bgColor;
+
+}
+
+
+if(settings.backgroundImage){
+
+document.body.style.backgroundImage=
+"url('"+
+settings.backgroundImage+
+"')";
+
+document
+.getElementById("loginScreen")
+.style.backgroundImage=
+"url('"+
+settings.backgroundImage+
+"')";
 
 }
 
@@ -1985,26 +2671,30 @@ settings.bg;
 
 
 /* =========================
-التاريخ
+   DATE
 ========================= */
 
 function loadDate(){
 
-const now=new Date();
+const now=
+new Date();
 
-document.getElementById("today")
+document
+.getElementById("today")
 .textContent=
 now.toLocaleDateString("ar-DZ");
 
-document.getElementById("invoiceDate")
+document
+.getElementById("invoiceDate")
 .value=
-now.toISOString().slice(0,10);
+now.toISOString()
+.slice(0,10);
 
 }
 
 
 /* =========================
-تشغيل
+   START
 ========================= */
 
 loadSettings();
