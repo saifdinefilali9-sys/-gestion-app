@@ -2,160 +2,306 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#6f8f22">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#718c24">
+
 <title>نظام التسيير</title>
 
 <style>
+
 :root{
-  --main:#6f8f22;
-  --bg:#f8efd9;
-  --card:#fffdf8;
+  --main:#718c24;
+  --bg:#f4f6f9;
+  --card:#ffffff;
   --text:#202020;
   --muted:#707070;
-  --danger:#e32626;
-  --success:#18a94b;
-  --border:#eadfc9;
+  --border:#e5e5e5;
+  --danger:#dc2626;
+  --success:#16a34a;
 }
 
-*{box-sizing:border-box}
+/* =========================
+   الأساس
+========================= */
 
-html,body{
+*{
+  box-sizing:border-box;
+  font-family:Arial,Tahoma,sans-serif;
+}
+
+html,
+body{
   margin:0;
   padding:0;
-  font-family:Arial,"Tahoma",sans-serif;
+  min-height:100%;
+}
+
+body{
   background:var(--bg);
   color:var(--text);
 }
 
-body{min-height:100vh}
+button,
+input,
+select{
+  font-family:inherit;
+}
 
-button,input{font:inherit}
-button{cursor:pointer}
+button{
+  cursor:pointer;
+}
 
-.hidden{display:none!important}
+.hidden{
+  display:none!important;
+}
 
-/* ===== الرأس ===== */
+
+/* =========================
+   تسجيل الدخول
+========================= */
+
+.login{
+  position:fixed;
+  inset:0;
+  z-index:9000;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:var(--bg);
+}
+
+.login-box{
+  width:100%;
+  max-width:390px;
+
+  background:white;
+
+  padding:25px;
+
+  border-radius:25px;
+
+  box-shadow:0 8px 30px #0002;
+
+  text-align:center;
+}
+
+.login-logo{
+  font-size:55px;
+  margin-bottom:5px;
+}
+
+.login-box h2{
+  margin:5px 0 18px;
+}
+
+.login-box input{
+  width:100%;
+  padding:14px;
+
+  border:1px solid #ddd;
+
+  border-radius:12px;
+
+  margin:6px 0;
+
+  font-size:16px;
+}
+
+.login-error{
+  min-height:22px;
+  color:red;
+  margin-top:8px;
+}
+
+
+/* =========================
+   التطبيق
+========================= */
+
+#app{
+  min-height:100vh;
+  background:var(--bg);
+}
+
+
+/* =========================
+   الرأس
+========================= */
 
 header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(255,248,230,.96);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  padding:12px 16px 10px;
+  background:var(--main);
+
+  color:white;
+
+  padding:
+    calc(13px + env(safe-area-inset-top))
+    16px
+    14px;
+
+  border-radius:0 0 25px 25px;
+
+  box-shadow:0 4px 15px #0002;
 }
 
 .header-row{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
 }
 
 .header-title{
-  font-size:25px;
-  font-weight:900;
+  font-size:23px;
+  font-weight:bold;
 }
 
-.icon-btn{
-  width:45px;
-  height:45px;
+.header-icon{
+  width:43px;
+  height:43px;
+
   border:0;
-  background:transparent;
-  color:#252525;
-  font-size:27px;
+
   border-radius:12px;
+
+  background:#ffffff22;
+
+  color:white;
+
+  font-size:23px;
 }
 
-.icon-btn:active{
-  transform:scale(.93);
-}
 
-/* ===== الحاوية ===== */
+/* =========================
+   الحاوية
+========================= */
 
 .container{
+  width:100%;
   max-width:900px;
+
   margin:auto;
-  padding:10px 16px 90px;
+
+  padding:12px 15px 80px;
 }
 
-/* ===== الرزنامة ===== */
+
+/* =========================
+   الرزنامة
+========================= */
 
 .calendar{
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:6px;
-  border:2px solid var(--main);
+
+  gap:5px;
+
+  background:white;
+
   border-radius:18px;
-  background:#fffdf8;
-  padding:7px 10px;
-  margin:5px 0 12px;
+
+  padding:7px;
+
+  margin-bottom:12px;
+
+  box-shadow:0 3px 12px #00000010;
+
+  border:1px solid var(--border);
 }
 
 .calendar button{
   width:42px;
   height:42px;
+
   border:0;
-  background:transparent;
-  color:#202020;
-  font-size:28px;
-  border-radius:10px;
+
+  border-radius:11px;
+
+  background:white;
+
+  color:#333;
+
+  font-size:25px;
 }
 
 .calendar button:active{
-  background:#eee5d0;
+  background:#eeeeee;
 }
 
 .calendar-center{
   flex:1;
+
   text-align:center;
-  font-size:18px;
-  font-weight:800;
+
+  font-size:16px;
+
+  font-weight:bold;
 }
 
 .calendar-center small{
   display:block;
+
+  margin-top:3px;
+
+  color:#777;
+
   font-size:11px;
-  color:var(--muted);
-  margin-top:2px;
 }
 
-.calendar-date-input{
+#calendarInput{
   position:absolute;
+
   width:1px;
   height:1px;
+
   opacity:0;
+
   pointer-events:none;
 }
 
-/* ===== البطاقات ===== */
+
+/* =========================
+   بطاقات الإحصائيات
+========================= */
 
 .cards{
   display:grid;
+
   grid-template-columns:1fr 1fr;
+
   gap:10px;
-  margin-bottom:12px;
+
+  margin-bottom:13px;
 }
 
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
+  background:white;
+
   border-radius:20px;
-  padding:14px 15px;
-  box-shadow:0 3px 12px #5a401010;
+
+  padding:15px 12px;
+
+  text-align:center;
+
+  border:1px solid var(--border);
+
+  box-shadow:0 3px 12px #0000000d;
 }
 
 .card h3{
   margin:0 0 7px;
-  font-size:16px;
+
+  color:#667085;
+
+  font-size:14px;
 }
 
-.card .number{
-  font-size:22px;
-  font-weight:900;
+.number{
+  font-size:21px;
+
+  font-weight:bold;
 }
 
 .profit .number{
@@ -163,395 +309,608 @@ header{
 }
 
 .expenses .number{
-  color:#c92828;
+  color:#d62828;
 }
 
-/* ===== التنقل ===== */
+
+/* =========================
+   أزرار الصفحة الرئيسية
+========================= */
 
 .nav{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:9px;
-  margin-bottom:12px;
+
+  margin-bottom:15px;
 }
 
 .nav button{
-  border:1px solid var(--border);
-  background:#fffdf8;
-  color:#292929;
-  min-height:58px;
-  border-radius:16px;
-  font-weight:700;
-  font-size:16px;
-  box-shadow:0 2px 7px #0000000b;
+  width:100%;
+
+  min-height:75px;
+
+  margin:0;
+
+  padding:8px 4px;
+
+  border:1px solid #e0e0e0;
+
+  border-radius:18px;
+
+  background:white;
+
+  color:#333;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  box-shadow:0 3px 10px #0000000d;
+
+  line-height:1.5;
 }
 
 .nav button.active{
   background:var(--main);
+
   color:white;
+
   border-color:var(--main);
-  transform:scale(.985);
 }
 
 .nav button:active{
-  transform:scale(.96);
+  transform:scale(.95);
 }
 
-/* ===== الأقسام ===== */
+
+/* =========================
+   الأقسام
+========================= */
 
 .section{
-  background:transparent;
+  background:white;
+
+  padding:17px;
+
   border-radius:20px;
+
   margin-bottom:15px;
+
+  box-shadow:0 3px 12px #0000000d;
+}
+
+.section h2{
+  margin-top:0;
 }
 
 .section-title{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
-  margin:4px 0 10px;
 }
 
-.section-title h2{
-  margin:0;
-  font-size:22px;
+.small{
+  color:#667085;
+  font-size:13px;
 }
 
-.add-btn{
-  width:auto;
-  background:transparent;
-  color:var(--main);
-  border:2px solid var(--main);
-  padding:8px 12px;
-  border-radius:12px;
-  font-weight:800;
-}
 
-input,select{
+/* =========================
+   الإدخالات
+========================= */
+
+input,
+select{
   width:100%;
+
   padding:13px;
-  border:1px solid #ddd2bd;
-  border-radius:12px;
-  background:#fffdf8;
-  margin:5px 0;
+
+  margin:6px 0;
+
+  border:1px solid #d8dee9;
+
+  border-radius:11px;
+
   font-size:16px;
+
+  background:white;
 }
+
+
+/* =========================
+   الأزرار
+========================= */
 
 .primary{
   width:100%;
+
   border:0;
-  background:var(--main);
-  color:#fff;
+
   padding:13px;
+
+  margin-top:7px;
+
   border-radius:12px;
-  font-weight:800;
-  margin-top:6px;
+
+  background:var(--main);
+
+  color:white;
+
+  font-size:15px;
+
+  font-weight:bold;
 }
 
 .primary:active{
-  transform:scale(.98);
+  transform:scale(.97);
 }
 
 .danger{
   background:var(--danger)!important;
-  color:#fff!important;
 }
 
 .success{
   background:var(--success)!important;
-  color:#fff!important;
 }
 
 .secondary{
-  background:#69798f!important;
-  color:#fff!important;
+  background:#64748b!important;
 }
 
 .row{
   display:grid;
+
   grid-template-columns:1fr 1fr;
+
   gap:8px;
 }
 
-/* ===== المنتجات ===== */
+
+/* =========================
+   المنتجات
+========================= */
 
 .products-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:10px;
-  margin-top:10px;
+
+  margin-top:12px;
 }
 
 .product-card{
-  background:var(--card);
+  background:white;
+
   border:2px solid transparent;
-  border-radius:18px;
+
+  border-radius:17px;
+
   padding:9px;
+
   text-align:center;
-  box-shadow:0 2px 10px #00000010;
+
+  box-shadow:0 2px 10px #00000012;
+
   transition:.15s;
+
   user-select:none;
-  -webkit-tap-highlight-color:transparent;
 }
 
 .product-card.selected{
-  border-color:#ef7d42;
-  background:#fff8ef;
-  box-shadow:0 0 0 2px #ef7d4222;
-  transform:scale(.985);
+  border-color:var(--main);
+
+  background:#f8faef;
+
+  transform:scale(.98);
 }
 
 .product-card:active{
-  transform:scale(.965);
+  transform:scale(.95);
 }
 
 .product-card img{
   display:block;
+
   width:100%;
-  height:125px;
+
+  height:115px;
+
   object-fit:cover;
-  border-radius:13px;
+
+  border-radius:12px;
+
   background:#eee;
 }
 
 .product-name{
-  font-weight:900;
-  font-size:16px;
+  font-weight:bold;
+
   margin-top:7px;
 }
 
 .product-price{
-  font-weight:900;
   color:var(--main);
-  font-size:17px;
+
+  font-weight:bold;
+
   margin-top:5px;
 }
 
 .stock{
-  font-size:13px;
-  color:#666;
+  color:#667085;
+
+  font-size:12px;
+
   margin-top:4px;
 }
 
 .hint{
-  background:#fff7df;
-  border:1px solid #e9d8a8;
+  background:#fff8df;
+
+  border:1px solid #ead99f;
+
   border-radius:12px;
-  padding:9px;
+
+  padding:10px;
+
   text-align:center;
-  color:#6c5b32;
+
   font-size:13px;
-  margin-bottom:8px;
+
+  color:#6c5b32;
+
+  margin-bottom:10px;
 }
 
-/* ===== العناصر ===== */
+
+/* =========================
+   العناصر
+========================= */
 
 .item{
-  background:#fffdf8;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:12px;
-  margin:7px 0;
+  padding:13px 0;
+
+  border-bottom:1px solid #eee;
+}
+
+.item:last-child{
+  border-bottom:0;
 }
 
 .empty{
   text-align:center;
+
   color:#888;
-  padding:25px;
-  background:#fffdf8;
-  border-radius:15px;
+
+  padding:22px;
 }
 
 .total{
-  background:#fffdf8;
-  border:1px solid var(--border);
-  border-radius:14px;
+  font-size:19px;
+
+  font-weight:bold;
+
+  margin-top:12px;
+
+  background:#f8faf4;
+
   padding:13px;
-  margin-top:10px;
-  font-size:18px;
-  font-weight:900;
+
+  border-radius:12px;
 }
 
-/* ===== نافذة البيع ===== */
+
+/* =========================
+   نافذة البيع والكمية
+========================= */
 
 .modal{
   position:fixed;
+
   inset:0;
-  background:#0008;
+
+  z-index:8000;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
-  z-index:5000;
+
   padding:18px;
+
+  background:#0008;
 }
 
 .modal-box{
   width:100%;
-  max-width:430px;
-  background:#fff;
-  border-radius:28px;
-  padding:22px 20px 20px;
-  box-shadow:0 15px 50px #0005;
+
+  max-width:420px;
+
+  background:white;
+
+  border-radius:25px;
+
+  padding:20px;
+
   text-align:center;
-  max-height:92vh;
-  overflow:auto;
+
+  box-shadow:0 10px 40px #0005;
 }
 
 .modal-close{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  border:1px solid #ddd;
-  background:#fff;
-  color:#555;
-  font-size:26px;
+  width:40px;
+  height:40px;
+
   float:left;
+
+  border:0;
+
+  border-radius:50%;
+
+  background:#eee;
+
+  font-size:25px;
 }
 
 .modal-image{
-  width:75%;
-  max-width:250px;
-  height:170px;
+  display:block;
+
+  width:180px;
+  height:130px;
+
   object-fit:contain;
-  border-radius:15px;
-  margin:5px auto 8px;
+
+  margin:5px auto 10px;
+
+  border-radius:14px;
+
+  background:#eee;
 }
 
 .modal-box h2{
-  font-size:26px;
   margin:7px 0;
+
+  font-size:24px;
 }
 
 .modal-stock{
-  color:#6d7580;
-  font-size:17px;
+  color:#777;
+
+  margin-bottom:5px;
 }
 
 .qty{
-  font-size:48px;
-  font-weight:900;
-  margin:12px auto;
-  width:110px;
-  padding:6px;
-  border:1px solid #e4d8c2;
-  border-radius:20px;
+  font-size:40px;
+
+  font-weight:bold;
+
+  margin:12px;
 }
 
 .qty-row{
   display:grid;
+
   grid-template-columns:1fr 1fr;
-  gap:12px;
+
+  gap:10px;
 }
 
 .qty-row button{
   border:0;
-  border-radius:16px;
-  padding:14px;
-  font-size:30px;
-  font-weight:900;
+
+  border-radius:13px;
+
+  padding:13px;
+
+  font-size:27px;
+
   background:var(--main);
+
   color:white;
 }
 
-.qty-row button.minus{
-  background:var(--danger);
+.qty-row .minus{
+  background:#64748b;
 }
 
 .modal-price{
+  margin:12px;
+
+  font-weight:bold;
+
   font-size:18px;
-  font-weight:800;
-  margin:14px 0;
 }
 
 .modal-actions{
   display:grid;
-  gap:10px;
+
+  gap:8px;
 }
 
 .modal-actions button{
   border:0;
+
+  border-radius:12px;
+
+  padding:14px;
+
+  font-size:16px;
+
+  font-weight:bold;
+}
+
+
+/* =========================
+   الفواتير
+========================= */
+
+.invoice{
+  border:1px solid #ddd;
+
+  padding:16px;
+
   border-radius:15px;
+
+  background:white;
+
+  margin-top:10px;
+}
+
+.invoice-head{
+  text-align:center;
+
+  border-bottom:1px dashed #999;
+
+  padding-bottom:10px;
+
+  margin-bottom:12px;
+}
+
+.invoice-head h3{
+  margin:4px;
+}
+
+.invoice-total{
+  font-size:21px;
+
+  font-weight:bold;
+
+  margin-top:12px;
+
+  border-top:1px dashed #999;
+
+  padding-top:12px;
+}
+
+
+/* =========================
+   الرئيسية
+========================= */
+
+.home-welcome{
+  text-align:center;
+
+  padding:8px 0;
+}
+
+.home-welcome h2{
+  margin-bottom:5px;
+}
+
+.home-date{
+  margin-top:14px;
+
   padding:15px;
-  font-size:18px;
-  font-weight:900;
-}
 
-/* ===== تسجيل الدخول ===== */
+  border-radius:15px;
 
-.login{
-  position:fixed;
-  inset:0;
-  z-index:9000;
-  background:var(--bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
+  background:#f8faf4;
 
-.login-box{
-  width:100%;
-  max-width:390px;
-  background:#fffdf8;
-  border-radius:25px;
-  padding:25px;
-  box-shadow:0 8px 30px #0002;
   text-align:center;
 }
 
-.login-logo{
-  font-size:52px;
+.home-date strong{
+  display:block;
+
+  color:var(--main);
+
+  font-size:18px;
+
+  margin-top:5px;
 }
 
-.login-box h2{
-  margin:5px 0 15px;
-}
 
-.login-error{
-  color:#d00;
-  min-height:20px;
-}
+/* =========================
+   الطباعة
+========================= */
 
-@media(min-width:700px){
-  .nav{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .products-grid{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .product-card img{
-    height:135px;
-  }
+#printArea{
+  display:none;
 }
 
 @media print{
+
   body>*{
     display:none!important;
   }
 
   #printArea{
     display:block!important;
+
+    position:absolute;
+
+    inset:0;
+
+    background:white;
+
     padding:20px;
-    background:#fff;
-    color:#000;
   }
 }
+
+
+/* =========================
+   الهاتف
+========================= */
+
+@media(max-width:500px){
+
+  .container{
+    padding-left:11px;
+    padding-right:11px;
+  }
+
+  .nav{
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+  .nav button{
+    min-height:72px;
+
+    font-size:14px;
+  }
+
+  .products-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- تسجيل الدخول -->
 
-<div id="loginScreen" class="login">
+<!-- ==================================================
+     تسجيل الدخول
+================================================== -->
+
+<div
+id="loginScreen"
+class="login">
 
 <div class="login-box">
 
-<div class="login-logo">🔐</div>
+<div class="login-logo">
+🔐
+</div>
 
-<h2>تسجيل الدخول</h2>
+<h2>
+تسجيل الدخول
+</h2>
 
 <input
 id="loginUser"
@@ -564,34 +923,55 @@ type="password"
 placeholder="كلمة السر"
 autocomplete="current-password">
 
-<button class="primary" onclick="login()">
+<button
+class="primary"
+onclick="login()">
+
 🔓 دخول
+
 </button>
 
-<div id="loginError" class="login-error"></div>
+<div
+id="loginError"
+class="login-error">
+</div>
 
 </div>
+
 </div>
 
 
-<!-- التطبيق -->
 
-<div id="app" class="hidden">
+<!-- ==================================================
+     التطبيق
+================================================== -->
+
+<div
+id="app"
+class="hidden">
+
 
 <header>
 
 <div class="header-row">
 
-<button class="icon-btn">
+<button
+class="header-icon">
 ☰
 </button>
 
-<div class="header-title" id="shopTitle">
-نظام التسيير
+<div
+class="header-title"
+id="shopTitle">
+
+📊 نظام التسيير
+
 </div>
 
-<button class="icon-btn">
+<button
+class="header-icon">
 🔔
+
 </button>
 
 </div>
@@ -599,14 +979,18 @@ autocomplete="current-password">
 </header>
 
 
+
 <div class="container">
 
 
-<!-- الرزنامة -->
+<!-- ==================================================
+     الرزنامة
+================================================== -->
 
 <div class="calendar">
 
-<button onclick="changeDate(-1)">
+<button
+onclick="changeDate(-1)">
 ‹
 </button>
 
@@ -615,24 +999,28 @@ class="calendar-center"
 id="calendarText">
 </div>
 
-<button onclick="changeDate(1)">
+<button
+onclick="changeDate(1)">
 ›
 </button>
 
-<button onclick="openCalendar()">
+<button
+onclick="openCalendar()">
 📅
 </button>
 
 <input
 id="calendarInput"
-class="calendar-date-input"
 type="date"
 onchange="pickDate(this.value)">
 
 </div>
 
 
-<!-- البطاقات -->
+
+<!-- ==================================================
+     البطاقات
+================================================== -->
 
 <div class="cards">
 
@@ -645,7 +1033,9 @@ onchange="pickDate(this.value)">
 <div
 class="number"
 id="profitTotal">
+
 0 دج
+
 </div>
 
 </div>
@@ -660,89 +1050,149 @@ id="profitTotal">
 <div
 class="number"
 id="expenseTotal">
+
 0 دج
-</div>
 
 </div>
 
 </div>
 
 
-<!-- التنقل -->
+</div>
+
+
+
+<!-- ==================================================
+     القائمة الرئيسية
+================================================== -->
 
 <div class="nav">
 
 <button
 class="active"
-onclick="showSection('salesSection',this)">
-🛒 المبيعات
+onclick="showSection('dashboard',this)">
+
+🏠<br>
+الرئيسية
+
 </button>
+
 
 <button
 onclick="showSection('productsSection',this)">
-📦 المنتجات
+
+📦<br>
+المنتجات
+
 </button>
 
-<button
-onclick="showSection('customersSection',this)">
-👥 الزبائن
-</button>
 
 <button
-onclick="showSection('expensesSection',this)">
-💸 المصاريف
+onclick="showSection('salesSection',this)">
+
+🛒<br>
+المبيعات
+
 </button>
+
 
 <button
 onclick="showSection('invoicesSection',this)">
-🧾 الفواتير
+
+🧾<br>
+الفواتير
+
 </button>
+
+
+<button
+onclick="showSection('expensesSection',this)">
+
+💸<br>
+المصاريف
+
+</button>
+
+
+<button
+onclick="showSection('customersSection',this)">
+
+👥<br>
+الزبائن
+
+</button>
+
 
 <button
 onclick="showSection('statsSection',this)">
-📊 الربح
+
+📊<br>
+الربح
+
 </button>
+
 
 <button
 onclick="showSection('settingsSection',this)">
-⚙️ الإعدادات
+
+⚙️<br>
+الإعدادات
+
 </button>
 
+
 <button
-onclick="showSection('dashboard',this)">
-🏠 الرئيسية
+onclick="logout()">
+
+🚪<br>
+خروج
+
 </button>
 
 </div>
 
 
-<!-- الرئيسية -->
+
+<!-- ==================================================
+     الرئيسية
+================================================== -->
 
 <section
 id="dashboard"
-class="section hidden">
+class="section">
 
-<div class="section-title">
+<div class="home-welcome">
 
 <h2>
 🏠 الرئيسية
 </h2>
 
-</div>
+<p class="small">
 
-<div class="item">
+مرحبًا بك في نظام التسيير
 
-اليوم:
-
-<strong id="today"></strong>
+</p>
 
 </div>
 
+
+<div class="home-date">
+
+📅 اليوم
+
+<strong
+id="today">
+</strong>
+
+</div>
+
+
 <div class="item">
 
-المنتجات:
+📦 عدد المنتجات:
 
-<strong id="productCount">
+<strong
+id="productCount">
 0
 </strong>
 
@@ -751,51 +1201,10 @@ class="section hidden">
 </section>
 
 
-<!-- المبيعات -->
 
-<section
-id="salesSection"
-class="section">
-
-<div class="section-title">
-
-<h2>
-🛒 المبيعات
-</h2>
-
-</div>
-
-<div class="hint">
-
-اضغط على المنتج مرة لتحديده،
-واضغط عليه مرة ثانية لفتح الكمية والبيع.
-
-</div>
-
-<div
-id="saleProducts"
-class="products-grid">
-</div>
-
-<div class="total">
-
-إجمالي اليوم:
-
-<span id="salePageTotal">
-0
-</span>
-
-دج
-
-</div>
-
-<div id="salesList">
-</div>
-
-</section>
-
-
-<!-- المنتجات -->
+<!-- ==================================================
+     المنتجات
+================================================== -->
 
 <section
 id="productsSection"
@@ -807,19 +1216,13 @@ class="section hidden">
 📦 المنتجات
 </h2>
 
-<button
-class="add-btn"
-onclick="document.getElementById('productName').focus()">
-
-＋ إضافة منتج
-
-</button>
-
 </div>
+
 
 <input
 id="productName"
 placeholder="اسم المنتج">
+
 
 <div class="row">
 
@@ -828,6 +1231,7 @@ id="buyPrice"
 type="number"
 placeholder="سعر الشراء">
 
+
 <input
 id="sellPrice"
 type="number"
@@ -835,15 +1239,25 @@ placeholder="سعر البيع">
 
 </div>
 
+
 <input
 id="stock"
 type="number"
 placeholder="الكمية في المخزون">
 
+
+<label class="small">
+
+🖼️ صورة المنتج
+
+</label>
+
+
 <input
 id="productImage"
 type="file"
 accept="image/*">
+
 
 <button
 class="primary"
@@ -853,6 +1267,7 @@ onclick="addProduct()">
 
 </button>
 
+
 <div
 id="productsGrid"
 class="products-grid">
@@ -861,53 +1276,105 @@ class="products-grid">
 </section>
 
 
-<!-- الفواتير -->
+
+<!-- ==================================================
+     المبيعات
+================================================== -->
 
 <section
-id="invoicesSection"
+id="salesSection"
 class="section hidden">
 
-<div class="section-title">
-
 <h2>
-🧾 الفواتير
+🛒 المبيعات
 </h2>
+
+<div class="hint">
+
+اضغط على المنتج مرة لتحديده،
+ثم اضغط عليه مرة ثانية لفتح الكمية والبيع.
 
 </div>
 
-<input
-id="invoiceDate"
-type="date"
-onchange="refreshInvoices()">
 
-<div id="invoicesList">
+<div
+id="saleProducts"
+class="products-grid">
+</div>
+
+
+<div class="total">
+
+إجمالي اليوم:
+
+<span
+id="salePageTotal">
+0
+</span>
+
+دج
+
+</div>
+
+
+<div
+id="salesList">
 </div>
 
 </section>
 
 
-<!-- المصاريف -->
+
+<!-- ==================================================
+     الفواتير
+================================================== -->
+
+<section
+id="invoicesSection"
+class="section hidden">
+
+<h2>
+🧾 الفواتير
+</h2>
+
+
+<input
+id="invoiceDate"
+type="date"
+onchange="invoiceDateChanged(this.value)">
+
+
+<div
+id="invoicesList">
+</div>
+
+</section>
+
+
+
+<!-- ==================================================
+     المصاريف
+================================================== -->
 
 <section
 id="expensesSection"
 class="section hidden">
 
-<div class="section-title">
-
 <h2>
 💸 المصاريف
 </h2>
 
-</div>
 
 <input
 id="expenseName"
 placeholder="اسم المصروف">
 
+
 <input
 id="expenseAmount"
 type="number"
 placeholder="المبلغ بالدج">
+
 
 <button
 class="primary"
@@ -917,11 +1384,13 @@ onclick="addExpense()">
 
 </button>
 
+
 <div class="total">
 
 إجمالي المصاريف:
 
-<span id="expensePageTotal">
+<span
+id="expensePageTotal">
 0
 </span>
 
@@ -929,33 +1398,37 @@ onclick="addExpense()">
 
 </div>
 
-<div id="expensesList">
+
+<div
+id="expensesList">
 </div>
 
 </section>
 
 
-<!-- الزبائن -->
+
+<!-- ==================================================
+     الزبائن
+================================================== -->
 
 <section
 id="customersSection"
 class="section hidden">
 
-<div class="section-title">
-
 <h2>
 👥 الزبائن
 </h2>
 
-</div>
 
 <input
 id="customerName"
 placeholder="اسم الزبون">
 
+
 <input
 id="customerPhone"
 placeholder="رقم الهاتف">
+
 
 <button
 class="primary"
@@ -965,65 +1438,75 @@ onclick="addCustomer()">
 
 </button>
 
-<div id="customersList">
+
+<div
+id="customersList">
 </div>
 
 </section>
 
 
-<!-- الربح -->
+
+<!-- ==================================================
+     الإحصائيات
+================================================== -->
 
 <section
 id="statsSection"
 class="section hidden">
 
-<div class="section-title">
-
 <h2>
 📊 الربح
 </h2>
 
-</div>
 
 <div class="item">
 
 💰 المبيعات:
 
-<strong id="statSales">
+<strong
+id="statSales">
 0 دج
 </strong>
 
 </div>
+
 
 <div class="item">
 
 💸 المصاريف:
 
-<strong id="statExpenses">
+<strong
+id="statExpenses">
 0 دج
 </strong>
 
 </div>
+
 
 <div class="item">
 
 📦 تكلفة البضاعة:
 
-<strong id="statCost">
+<strong
+id="statCost">
 0 دج
 </strong>
 
 </div>
+
 
 <div class="item">
 
 📈 صافي الربح:
 
-<strong id="statProfit">
+<strong
+id="statProfit">
 0 دج
 </strong>
 
 </div>
+
 
 <button
 class="primary danger"
@@ -1036,23 +1519,29 @@ onclick="clearAllData()">
 </section>
 
 
-<!-- الإعدادات -->
+
+<!-- ==================================================
+     الإعدادات
+================================================== -->
 
 <section
 id="settingsSection"
 class="section hidden">
 
-<div class="section-title">
-
 <h2>
 ⚙️ الإعدادات
 </h2>
 
-</div>
+
+<h3>
+🏪 معلومات المحل
+</h3>
+
 
 <input
 id="settingsShopName"
 placeholder="اسم المحل">
+
 
 <button
 class="primary"
@@ -1063,60 +1552,70 @@ onclick="saveShopName()">
 </button>
 
 
-<label>
+
+<h3>
 🎨 لون الأيقونات والأزرار
-</label>
+</h3>
+
 
 <input
 id="mainColor"
 type="color"
-value="#6f8f22">
+value="#718c24">
+
 
 <button
 class="primary"
 onclick="saveColor()">
 
-🎨 حفظ اللون
+🎨 تغيير اللون
 
 </button>
 
 
-<label>
+
+<h3>
 🖼️ لون الخلفية
-</label>
+</h3>
+
 
 <input
 id="bgColor"
 type="color"
-value="#f8efd9">
+value="#f4f6f9">
+
 
 <button
 class="primary"
 onclick="saveBackground()">
 
-🖼️ حفظ الخلفية
+🖼️ تغيير الخلفية
 
 </button>
 
 
+
 <h3>
-🔐 تغيير الدخول
+🔐 الحساب
 </h3>
+
 
 <input
 id="newUsername"
 placeholder="اسم مستخدم جديد">
+
 
 <input
 id="newPassword"
 type="password"
 placeholder="كلمة سر جديدة">
 
+
 <button
 class="primary"
 onclick="changeLogin()">
 
-🔐 تغيير بيانات الدخول
+🔐 تغيير اسم المستخدم وكلمة السر
 
 </button>
 
@@ -1132,19 +1631,32 @@ onclick="logout()">
 </section>
 
 
-<div id="printArea"></div>
+
+<!-- ==================================================
+     منطقة الطباعة
+================================================== -->
+
+<div
+id="printArea">
+</div>
+
 
 </div>
+
 </div>
 
 
-<!-- نافذة البيع -->
+
+<!-- ==================================================
+     نافذة الكمية والبيع
+================================================== -->
 
 <div
 id="saleModal"
 class="modal hidden">
 
 <div class="modal-box">
+
 
 <button
 class="modal-close"
@@ -1154,48 +1666,65 @@ onclick="closeSaleModal()">
 
 </button>
 
+
 <img
 id="modalImage"
 class="modal-image"
 src=""
 alt="">
 
-<h2 id="modalProductName">
+
+<h2
+id="modalProductName">
 </h2>
+
 
 <div
 class="modal-stock"
 id="modalStock">
 </div>
 
+
 <div
 class="qty"
 id="modalQty">
+
 1
+
 </div>
+
 
 <div class="qty-row">
 
-<button onclick="changeQty(1)">
+<button
+onclick="changeQty(1)">
+
 ＋
+
 </button>
+
 
 <button
 class="minus"
 onclick="changeQty(-1)">
+
 −
+
 </button>
 
 </div>
+
 
 <div class="modal-price">
 
 سعر البيع:
 
-<span id="modalPrice">
+<span
+id="modalPrice">
 </span>
 
 </div>
+
 
 <div class="modal-actions">
 
@@ -1207,6 +1736,7 @@ onclick="confirmSale()">
 
 </button>
 
+
 <button
 class="danger"
 onclick="closeSaleModal()">
@@ -1217,55 +1747,118 @@ onclick="closeSaleModal()">
 
 </div>
 
+
 </div>
+
 </div>
+
 
 
 <script>
 
-const KEY="gestionAppDataV3";
+/* ==================================================
+   البيانات
+================================================== */
 
-let data=JSON.parse(
-localStorage.getItem(KEY)||"null"
-)||{
+let products=
+JSON.parse(
+localStorage.getItem("products")||"[]"
+);
 
-products:[],
-sales:[],
-expenses:[],
-customers:[],
-invoices:[],
+let sales=
+JSON.parse(
+localStorage.getItem("sales")||"[]"
+);
 
-settings:{
-username:"admin",
-password:"1234",
-shopName:"نظام التسيير",
-color:"#6f8f22",
-bg:"#f8efd9"
-}
+let expenses=
+JSON.parse(
+localStorage.getItem("expenses")||"[]"
+);
 
-};
+let customers=
+JSON.parse(
+localStorage.getItem("customers")||"[]"
+);
+
+let invoices=
+JSON.parse(
+localStorage.getItem("invoices")||"[]"
+);
+
+let settings=
+JSON.parse(
+localStorage.getItem("settings")||"{}"
+);
+
+
+/* الحساب */
+
+let defaultUser=
+settings.username||"admin";
+
+let defaultPass=
+settings.password||"1234";
+
+
+/* المنتج المحدد */
 
 let selectedProduct=null;
+
 let selectedQty=1;
+
 let selectedCardId=null;
 
+
+/* التاريخ */
+
 let selectedDate=
-new Date().toISOString().slice(0,10);
+new Date()
+.toISOString()
+.slice(0,10);
 
 
-/* الحفظ */
+/* ==================================================
+   الحفظ
+================================================== */
 
-function save(){
+function saveData(){
 
 localStorage.setItem(
-KEY,
-JSON.stringify(data)
+"products",
+JSON.stringify(products)
+);
+
+localStorage.setItem(
+"sales",
+JSON.stringify(sales)
+);
+
+localStorage.setItem(
+"expenses",
+JSON.stringify(expenses)
+);
+
+localStorage.setItem(
+"customers",
+JSON.stringify(customers)
+);
+
+localStorage.setItem(
+"invoices",
+JSON.stringify(invoices)
+);
+
+localStorage.setItem(
+"settings",
+JSON.stringify(settings)
 );
 
 }
 
 
-/* المال */
+/* ==================================================
+   المال
+================================================== */
 
 function money(n){
 
@@ -1275,61 +1868,39 @@ return Number(n||0)
 }
 
 
-/* حماية النص */
-
-function esc(s){
-
-return String(s??"")
-.replace(/[&<>"']/g,m=>({
-
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-
-}[m]));
-
-}
-
-
-/* صورة افتراضية */
-
-function placeholder(){
-
-return "data:image/svg+xml;charset=UTF-8,"+
-encodeURIComponent(
-'<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">'+
-'<rect width="100%" height="100%" fill="#eee"/>'+
-'<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="40">📦</text>'+
-'</svg>'
-);
-
-}
-
-
-/* تسجيل الدخول */
+/* ==================================================
+   تسجيل الدخول
+================================================== */
 
 function login(){
 
-const u=
-document.getElementById("loginUser").value;
+const user=
+document
+.getElementById("loginUser")
+.value;
 
-const p=
-document.getElementById("loginPass").value;
+const pass=
+document
+.getElementById("loginPass")
+.value;
+
 
 if(
-u===data.settings.username &&
-p===data.settings.password
+user===defaultUser &&
+pass===defaultPass
 ){
 
 document
 .getElementById("loginScreen")
-.classList.add("hidden");
+.classList
+.add("hidden");
+
 
 document
 .getElementById("app")
-.classList.remove("hidden");
+.classList
+.remove("hidden");
+
 
 refresh();
 
@@ -1345,59 +1916,80 @@ document
 }
 
 
-/* تسجيل الخروج */
+/* ==================================================
+   تسجيل الخروج
+================================================== */
 
 function logout(){
 
 document
 .getElementById("app")
-.classList.add("hidden");
+.classList
+.add("hidden");
+
 
 document
 .getElementById("loginScreen")
-.classList.remove("hidden");
+.classList
+.remove("hidden");
 
-document.getElementById("loginUser").value="";
-document.getElementById("loginPass").value="";
+
+document
+.getElementById("loginUser")
+.value="";
+
+
+document
+.getElementById("loginPass")
+.value="";
 
 }
 
 
-/* التنقل */
+/* ==================================================
+   التنقل
+================================================== */
 
 function showSection(id,btn){
 
 document
 .querySelectorAll(".section")
-.forEach(x=>
-x.classList.add("hidden")
+.forEach(
+s=>s.classList.add("hidden")
 );
+
 
 document
 .getElementById(id)
-.classList.remove("hidden");
+.classList
+.remove("hidden");
+
 
 document
 .querySelectorAll(".nav button")
-.forEach(x=>
-x.classList.remove("active")
+.forEach(
+b=>b.classList.remove("active")
 );
 
+
 btn.classList.add("active");
+
 
 refresh();
 
 }
 
 
-/* التاريخ */
+/* ==================================================
+   التاريخ
+================================================== */
 
-function formatArabicDate(iso){
+function formatDate(date){
 
-const d=
-new Date(iso+"T12:00:00");
-
-return d.toLocaleDateString(
+return new Date(
+date+"T12:00:00"
+)
+.toLocaleDateString(
 "ar-DZ",
 {
 weekday:"long",
@@ -1410,44 +2002,50 @@ day:"numeric"
 }
 
 
-function updateCalendar(){
+function updateDate(){
 
 document
 .getElementById("calendarText")
 .innerHTML=
-formatArabicDate(selectedDate);
+formatDate(selectedDate);
+
+
+document
+.getElementById("today")
+.textContent=
+formatDate(selectedDate);
+
 
 document
 .getElementById("invoiceDate")
 .value=
 selectedDate;
 
+
 document
 .getElementById("calendarInput")
 .value=
 selectedDate;
 
-document
-.getElementById("today")
-.textContent=
-formatArabicDate(selectedDate);
-
 }
 
 
-function changeDate(delta){
+function changeDate(amount){
 
 const d=
-new Date(selectedDate+"T12:00:00");
+new Date(
+selectedDate+"T12:00:00"
+);
 
 d.setDate(
-d.getDate()+delta
+d.getDate()+amount
 );
 
 selectedDate=
-d.toISOString().slice(0,10);
+d.toISOString()
+.slice(0,10);
 
-updateCalendar();
+updateDate();
 
 refresh();
 
@@ -1457,7 +2055,9 @@ refresh();
 function openCalendar(){
 
 const input=
-document.getElementById("calendarInput");
+document.getElementById(
+"calendarInput"
+);
 
 if(input.showPicker){
 
@@ -1472,13 +2072,26 @@ input.click();
 }
 
 
-function pickDate(v){
+function pickDate(value){
 
-if(v){
+if(!value)return;
 
-selectedDate=v;
+selectedDate=value;
 
-updateCalendar();
+updateDate();
+
+refresh();
+
+}
+
+
+function invoiceDateChanged(value){
+
+if(value){
+
+selectedDate=value;
+
+updateDate();
 
 refresh();
 
@@ -1487,28 +2100,37 @@ refresh();
 }
 
 
-/* إضافة المنتج */
+/* ==================================================
+   إضافة منتج
+================================================== */
 
 function addProduct(){
 
 const name=
 document
 .getElementById("productName")
-.value.trim();
+.value
+.trim();
 
 const buy=
 Number(
-document.getElementById("buyPrice").value
+document
+.getElementById("buyPrice")
+.value
 );
 
 const sell=
 Number(
-document.getElementById("sellPrice").value
+document
+.getElementById("sellPrice")
+.value
 );
 
 const stock=
 Number(
-document.getElementById("stock").value
+document
+.getElementById("stock")
+.value
 );
 
 const file=
@@ -1533,9 +2155,9 @@ return;
 }
 
 
-const finish=image=>{
+function finish(image){
 
-data.products.push({
+products.push({
 
 id:Date.now(),
 
@@ -1551,35 +2173,49 @@ image:image||""
 
 });
 
-save();
 
-[
-"productName",
-"buyPrice",
-"sellPrice",
-"stock",
-"productImage"
-]
-.forEach(
-id=>
-document.getElementById(id).value=""
-);
+saveData();
+
+
+document
+.getElementById("productName")
+.value="";
+
+document
+.getElementById("buyPrice")
+.value="";
+
+document
+.getElementById("sellPrice")
+.value="";
+
+document
+.getElementById("stock")
+.value="";
+
+document
+.getElementById("productImage")
+.value="";
+
 
 refresh();
 
-};
+}
 
 
 if(file){
 
-const r=
+const reader=
 new FileReader();
 
-r.onload=
-e=>
+reader.onload=
+function(e){
+
 finish(e.target.result);
 
-r.readAsDataURL(file);
+};
+
+reader.readAsDataURL(file);
 
 }else{
 
@@ -1590,7 +2226,26 @@ finish("");
 }
 
 
-/* بطاقة المنتج */
+/* ==================================================
+   صورة افتراضية
+================================================== */
+
+function defaultImage(){
+
+return "data:image/svg+xml;charset=UTF-8,"+
+encodeURIComponent(
+'<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">'+
+'<rect width="100%" height="100%" fill="#eeeeee"/>'+
+'<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="45">📦</text>'+
+'</svg>'
+);
+
+}
+
+
+/* ==================================================
+   بطاقة المنتج
+================================================== */
 
 function productCard(p){
 
@@ -1599,27 +2254,33 @@ selectedCardId===p.id
 ?"selected"
 :"";
 
+
 return `
 
 <div
 class="product-card ${selected}"
-data-id="${p.id}"
 onclick="tapProduct(${p.id},this)">
 
 <img
-src="${p.image||placeholder()}"
+src="${p.image||defaultImage()}"
 alt="">
 
 <div class="product-name">
-${esc(p.name)}
+
+${escapeHtml(p.name)}
+
 </div>
 
 <div class="product-price">
+
 ${money(p.sell)}
+
 </div>
 
 <div class="stock">
+
 المخزون: ${p.stock}
+
 </div>
 
 </div>
@@ -1629,41 +2290,65 @@ ${money(p.sell)}
 }
 
 
-/* الضغط الأول والثاني */
+/* ==================================================
+   حماية النص
+================================================== */
 
-function tapProduct(id,el){
+function escapeHtml(text){
+
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* ==================================================
+   نظام الضغطتين
+================================================== */
+
+function tapProduct(id,element){
 
 if(selectedCardId===id){
 
 openSaleModal(id);
 
-}else{
+return;
+
+}
+
 
 selectedCardId=id;
 
+
 document
 .querySelectorAll(".product-card")
-.forEach(x=>
-x.classList.remove("selected")
+.forEach(
+x=>x.classList.remove("selected")
 );
 
-el.classList.add("selected");
+
+element.classList.add("selected");
 
 }
 
-}
 
-
-/* نافذة البيع */
+/* ==================================================
+   فتح نافذة البيع
+================================================== */
 
 function openSaleModal(id){
 
 const p=
-data.products.find(
+products.find(
 x=>x.id===id
 );
 
 if(!p)return;
+
 
 if(p.stock<=0){
 
@@ -1675,34 +2360,42 @@ return;
 
 }
 
+
 selectedProduct=p;
+
 selectedQty=1;
+
 selectedCardId=id;
+
 
 document
 .getElementById("modalImage")
 .src=
-p.image||placeholder();
+p.image||defaultImage();
+
 
 document
 .getElementById("modalProductName")
 .textContent=
 p.name;
 
+
 document
 .getElementById("modalStock")
 .textContent=
 "المخزون المتوفر: "+p.stock;
 
+
 document
 .getElementById("modalQty")
-.textContent=
-"1";
+.textContent="1";
+
 
 document
 .getElementById("modalPrice")
 .textContent=
 money(p.sell);
+
 
 document
 .getElementById("saleModal")
@@ -1712,18 +2405,35 @@ document
 }
 
 
-function changeQty(n){
+/* ==================================================
+   تغيير الكمية
+================================================== */
+
+function changeQty(amount){
 
 if(!selectedProduct)return;
 
+
+selectedQty+=amount;
+
+
+if(selectedQty<1){
+
+selectedQty=1;
+
+}
+
+
+if(
+selectedQty>
+selectedProduct.stock
+){
+
 selectedQty=
-Math.max(
-1,
-Math.min(
-selectedProduct.stock,
-selectedQty+n
-)
-);
+selectedProduct.stock;
+
+}
+
 
 document
 .getElementById("modalQty")
@@ -1733,7 +2443,9 @@ selectedQty;
 }
 
 
-/* إغلاق البيع */
+/* ==================================================
+   إغلاق نافذة البيع
+================================================== */
 
 function closeSaleModal(){
 
@@ -1742,23 +2454,36 @@ document
 .classList
 .add("hidden");
 
+
 selectedProduct=null;
+
+selectedQty=1;
+
 selectedCardId=null;
+
 
 refresh();
 
 }
 
 
-/* تأكيد البيع */
+/* ==================================================
+   تأكيد البيع
+================================================== */
 
 function confirmSale(){
 
 if(!selectedProduct)return;
 
-const p=selectedProduct;
 
-if(selectedQty>p.stock){
+const p=
+selectedProduct;
+
+
+if(
+selectedQty>
+p.stock
+){
 
 alert(
 "المخزون غير كاف"
@@ -1768,11 +2493,19 @@ return;
 
 }
 
+
 p.stock-=selectedQty;
+
 
 const id=Date.now();
 
-const sale={
+
+const date=
+new Date()
+.toLocaleString("ar-DZ");
+
+
+sales.push({
 
 id:id,
 
@@ -1786,16 +2519,14 @@ price:p.sell,
 
 buy:p.buy,
 
-day:selectedDate,
+date:date,
 
-date:new Date()
-.toLocaleString("ar-DZ")
+day:selectedDate
 
-};
+});
 
-data.sales.push(sale);
 
-data.invoices.push({
+invoices.push({
 
 id:id,
 
@@ -1809,15 +2540,29 @@ price:p.sell,
 
 total:p.sell*selectedQty,
 
-day:selectedDate,
+date:date,
 
-date:sale.date
+day:selectedDate
 
 });
 
-save();
 
-closeSaleModal();
+saveData();
+
+
+document
+.getElementById("saleModal")
+.classList
+.add("hidden");
+
+
+selectedProduct=null;
+
+selectedCardId=null;
+
+
+refresh();
+
 
 alert(
 "تم تسجيل البيع بنجاح"
@@ -1826,14 +2571,17 @@ alert(
 }
 
 
-/* المصاريف */
+/* ==================================================
+   المصاريف
+================================================== */
 
 function addExpense(){
 
 const name=
 document
 .getElementById("expenseName")
-.value.trim();
+.value
+.trim();
 
 const amount=
 Number(
@@ -1841,6 +2589,7 @@ document
 .getElementById("expenseAmount")
 .value
 );
+
 
 if(!name||amount<=0){
 
@@ -1852,7 +2601,8 @@ return;
 
 }
 
-data.expenses.push({
+
+expenses.push({
 
 id:Date.now(),
 
@@ -1860,41 +2610,50 @@ name:name,
 
 amount:amount,
 
-day:selectedDate,
-
 date:new Date()
-.toLocaleString("ar-DZ")
+.toLocaleString("ar-DZ"),
+
+day:selectedDate
 
 });
 
-save();
 
-document.getElementById(
-"expenseName"
-).value="";
+saveData();
 
-document.getElementById(
-"expenseAmount"
-).value="";
+
+document
+.getElementById("expenseName")
+.value="";
+
+
+document
+.getElementById("expenseAmount")
+.value="";
+
 
 refresh();
 
 }
 
 
-/* الزبائن */
+/* ==================================================
+   الزبائن
+================================================== */
 
 function addCustomer(){
 
 const name=
 document
 .getElementById("customerName")
-.value.trim();
+.value
+.trim();
 
 const phone=
 document
 .getElementById("customerPhone")
-.value.trim();
+.value
+.trim();
+
 
 if(!name){
 
@@ -1906,7 +2665,8 @@ return;
 
 }
 
-data.customers.push({
+
+customers.push({
 
 id:Date.now(),
 
@@ -1916,66 +2676,78 @@ phone:phone
 
 });
 
-save();
 
-document.getElementById(
-"customerName"
-).value="";
+saveData();
 
-document.getElementById(
-"customerPhone"
-).value="";
+
+document
+.getElementById("customerName")
+.value="";
+
+
+document
+.getElementById("customerPhone")
+.value="";
+
 
 refresh();
 
 }
 
 
-/* حذف المصروف */
+/* ==================================================
+   حذف المصروف
+================================================== */
 
 function deleteExpense(id){
 
-data.expenses=
-data.expenses.filter(
+expenses=
+expenses.filter(
 x=>x.id!==id
 );
 
-save();
+saveData();
 
 refresh();
 
 }
 
 
-/* حذف الزبون */
+/* ==================================================
+   حذف الزبون
+================================================== */
 
 function deleteCustomer(id){
 
-data.customers=
-data.customers.filter(
+customers=
+customers.filter(
 x=>x.id!==id
 );
 
-save();
+saveData();
 
 refresh();
 
 }
 
 
-/* الفواتير */
+/* ==================================================
+   الفواتير
+================================================== */
 
 function refreshInvoices(){
 
 const list=
-data.invoices.filter(
+invoices.filter(
 x=>x.day===selectedDate
 );
+
 
 const box=
 document.getElementById(
 "invoicesList"
 );
+
 
 if(!list.length){
 
@@ -1986,42 +2758,51 @@ return;
 
 }
 
+
 box.innerHTML=
 [...list]
 .reverse()
-.map(i=>`
+.map(
+i=>`
 
 <div class="invoice">
 
 <div class="invoice-head">
 
 <h3>
-🧾 ${esc(i.number)}
+🧾 ${escapeHtml(i.number)}
 </h3>
 
-<div>
-${esc(i.date)}
+<div class="small">
+${escapeHtml(i.date)}
 </div>
 
 </div>
 
 <div>
+
 📦 السلعة:
 
 <strong>
-${esc(i.product)}
+${escapeHtml(i.product)}
 </strong>
 
 </div>
 
+<br>
+
 <div>
+
 🔢 الكمية:
 
 ${i.quantity}
 
 </div>
 
+<br>
+
 <div>
+
 💰 سعر الوحدة:
 
 ${money(i.price)}
@@ -2046,47 +2827,55 @@ onclick="printInvoice(${i.id})">
 
 </div>
 
-`)
+`
+)
 .join("");
 
 }
 
 
-/* الطباعة */
+/* ==================================================
+   طباعة الفاتورة
+================================================== */
 
 function printInvoice(id){
 
 const i=
-data.invoices.find(
+invoices.find(
 x=>x.id===id
 );
 
 if(!i)return;
 
-const a=
+
+const area=
 document.getElementById(
 "printArea"
 );
 
-a.innerHTML=`
+
+area.innerHTML=`
 
 <div
 style="
+direction:rtl;
+font-family:Arial;
 max-width:420px;
 margin:auto;
-font-family:Arial;
-direction:rtl
 ">
 
 <div
 style="
 text-align:center;
 border-bottom:1px dashed #777;
-padding-bottom:12px
+padding-bottom:12px;
 ">
 
 <h2>
-${esc(data.settings.shopName)}
+${escapeHtml(
+settings.shopName||
+"نظام التسيير"
+)}
 </h2>
 
 <div>
@@ -2094,42 +2883,51 @@ ${esc(data.settings.shopName)}
 </div>
 
 <div>
-${esc(i.number)}
+رقم الفاتورة:
+${escapeHtml(i.number)}
 </div>
 
 <div>
-${esc(i.date)}
+التاريخ:
+${escapeHtml(i.date)}
 </div>
 
 </div>
+
 
 <p>
+
 📦 السلعة:
 
 <strong>
-${esc(i.product)}
+${escapeHtml(i.product)}
 </strong>
 
 </p>
 
+
 <p>
+
 🔢 الكمية:
 
 ${i.quantity}
 
 </p>
 
+
 <p>
+
 💰 سعر الوحدة:
 
 ${money(i.price)}
 
 </p>
 
+
 <h2
 style="
 border-top:1px dashed #777;
-padding-top:12px
+padding-top:12px;
 ">
 
 الإجمالي:
@@ -2138,7 +2936,11 @@ ${money(i.total)}
 
 </h2>
 
-<p style="text-align:center">
+
+<p
+style="
+text-align:center;
+">
 
 شكرًا لزيارتكم ❤️
 
@@ -2148,29 +2950,26 @@ ${money(i.total)}
 
 `;
 
-a.classList.remove("hidden");
 
 window.print();
-
-setTimeout(
-()=>
-a.classList.add("hidden"),
-800
-);
 
 }
 
 
-/* الإعدادات */
+/* ==================================================
+   اسم المحل
+================================================== */
 
 function saveShopName(){
 
-const v=
+const name=
 document
 .getElementById("settingsShopName")
-.value.trim();
+.value
+.trim();
 
-if(!v){
+
+if(!name){
 
 alert(
 "اكتب اسم المحل"
@@ -2180,60 +2979,97 @@ return;
 
 }
 
-data.settings.shopName=v;
 
-save();
+settings.shopName=name;
+
+saveData();
 
 loadSettings();
 
 alert(
-"تم الحفظ"
+"تم حفظ اسم المحل"
 );
 
 }
 
 
+/* ==================================================
+   لون الأيقونات
+================================================== */
+
 function saveColor(){
 
-data.settings.color=
+const color=
 document
 .getElementById("mainColor")
 .value;
 
-save();
 
-loadSettings();
+settings.color=color;
+
+
+document
+.documentElement
+.style
+.setProperty(
+"--main",
+color
+);
+
+
+saveData();
 
 }
 
 
+/* ==================================================
+   لون الخلفية
+================================================== */
+
 function saveBackground(){
 
-data.settings.bg=
+const color=
 document
 .getElementById("bgColor")
 .value;
 
-save();
 
-loadSettings();
+settings.bg=color;
+
+
+document
+.documentElement
+.style
+.setProperty(
+"--bg",
+color
+);
+
+
+saveData();
 
 }
 
 
+/* ==================================================
+   تغيير كلمة السر
+================================================== */
+
 function changeLogin(){
 
-const u=
+const user=
 document
 .getElementById("newUsername")
-.value.trim();
+.value
+.trim();
 
-const p=
+const pass=
 document
 .getElementById("newPassword")
 .value;
 
-if(!u||!p){
+
+if(!user||!pass){
 
 alert(
 "أدخل اسم المستخدم وكلمة السر الجديدة"
@@ -2243,204 +3079,282 @@ return;
 
 }
 
-data.settings.username=u;
 
-data.settings.password=p;
+settings.username=user;
 
-save();
+settings.password=pass;
 
-document.getElementById(
-"newUsername"
-).value="";
 
-document.getElementById(
-"newPassword"
-).value="";
+defaultUser=user;
+
+defaultPass=pass;
+
+
+saveData();
+
+
+document
+.getElementById("newUsername")
+.value="";
+
+document
+.getElementById("newPassword")
+.value="";
+
 
 alert(
-"تم تغيير بيانات الدخول"
+"تم تغيير بيانات الدخول بنجاح"
 );
 
 }
 
 
-/* تحميل الإعدادات */
+/* ==================================================
+   تحميل الإعدادات
+================================================== */
 
 function loadSettings(){
 
-document.documentElement
-.style.setProperty(
-"--main",
-data.settings.color||"#6f8f22"
-);
+if(settings.shopName){
 
-document.documentElement
-.style.setProperty(
-"--bg",
-data.settings.bg||"#f8efd9"
-);
+document
+.getElementById("shopTitle")
+.textContent=
+"📊 "+settings.shopName;
 
-document.getElementById(
-"shopTitle"
-).textContent=
-data.settings.shopName||
-"نظام التسيير";
 
-document.getElementById(
-"settingsShopName"
-).value=
-data.settings.shopName||"";
-
-document.getElementById(
-"mainColor"
-).value=
-data.settings.color||
-"#6f8f22";
-
-document.getElementById(
-"bgColor"
-).value=
-data.settings.bg||
-"#f8efd9";
+document
+.getElementById("settingsShopName")
+.value=
+settings.shopName;
 
 }
 
 
-/* تحديث النظام */
+if(settings.color){
+
+document
+.documentElement
+.style
+.setProperty(
+"--main",
+settings.color
+);
+
+
+document
+.getElementById("mainColor")
+.value=
+settings.color;
+
+}
+
+
+if(settings.bg){
+
+document
+.documentElement
+.style
+.setProperty(
+"--bg",
+settings.bg
+);
+
+
+document
+.getElementById("bgColor")
+.value=
+settings.bg;
+
+}
+
+}
+
+
+/* ==================================================
+   تحديث النظام
+================================================== */
 
 function refresh(){
 
-updateCalendar();
+updateDate();
+
 
 const daySales=
-data.sales.filter(
+sales.filter(
 x=>x.day===selectedDate
 );
 
+
 const dayExpenses=
-data.expenses.filter(
+expenses.filter(
 x=>x.day===selectedDate
 );
+
 
 const salesTotal=
 daySales.reduce(
-(s,x)=>
-s+x.price*x.quantity,
+(sum,s)=>
+sum+
+s.price*s.quantity,
 0
 );
 
-const cost=
+
+const costTotal=
 daySales.reduce(
-(s,x)=>
-s+x.buy*x.quantity,
+(sum,s)=>
+sum+
+s.buy*s.quantity,
 0
 );
 
-const exp=
+
+const expenseTotal=
 dayExpenses.reduce(
-(s,x)=>
-s+x.amount,
+(sum,e)=>
+sum+e.amount,
 0
 );
+
 
 const profit=
-salesTotal-cost-exp;
+salesTotal-
+costTotal-
+expenseTotal;
 
 
-/* البطاقات */
+/* الإحصائيات */
 
-document.getElementById(
-"profitTotal"
-).textContent=
+document
+.getElementById("profitTotal")
+.textContent=
 money(profit);
 
-document.getElementById(
-"expenseTotal"
-).textContent=
-money(exp);
 
-document.getElementById(
-"productCount"
-).textContent=
-data.products.length;
+document
+.getElementById("expenseTotal")
+.textContent=
+money(expenseTotal);
 
-document.getElementById(
-"salePageTotal"
-).textContent=
-salesTotal.toLocaleString("ar-DZ");
 
-document.getElementById(
-"expensePageTotal"
-).textContent=
-exp.toLocaleString("ar-DZ");
+document
+.getElementById("productCount")
+.textContent=
+products.length;
 
-document.getElementById(
-"statSales"
-).textContent=
+
+document
+.getElementById("salePageTotal")
+.textContent=
+salesTotal
+.toLocaleString("ar-DZ");
+
+
+document
+.getElementById("expensePageTotal")
+.textContent=
+expenseTotal
+.toLocaleString("ar-DZ");
+
+
+document
+.getElementById("statSales")
+.textContent=
 money(salesTotal);
 
-document.getElementById(
-"statExpenses"
-).textContent=
-money(exp);
 
-document.getElementById(
-"statCost"
-).textContent=
-money(cost);
+document
+.getElementById("statExpenses")
+.textContent=
+money(expenseTotal);
 
-document.getElementById(
-"statProfit"
-).textContent=
+
+document
+.getElementById("statCost")
+.textContent=
+money(costTotal);
+
+
+document
+.getElementById("statProfit")
+.textContent=
 money(profit);
 
 
 /* المنتجات */
 
+const productBox=
 document.getElementById(
 "productsGrid"
-).innerHTML=
-data.products.length
+);
 
-?data.products
+
+if(!products.length){
+
+productBox.innerHTML=
+'<div class="empty">لا توجد منتجات بعد</div>';
+
+}else{
+
+productBox.innerHTML=
+products
 .map(productCard)
-.join("")
+.join("");
 
-:'<div class="empty">لا توجد منتجات بعد</div>';
+}
 
 
-/* منتجات البيع */
+/* البيع */
 
+const saleBox=
 document.getElementById(
 "saleProducts"
-).innerHTML=
-data.products.length
+);
 
-?data.products
+
+if(!products.length){
+
+saleBox.innerHTML=
+'<div class="empty">لا توجد منتجات</div>';
+
+}else{
+
+saleBox.innerHTML=
+products
 .map(productCard)
-.join("")
+.join("");
 
-:'<div class="empty">لا توجد منتجات</div>';
+}
 
 
 /* المبيعات */
 
+const salesBox=
 document.getElementById(
 "salesList"
-).innerHTML=
+);
 
-daySales.length
 
-?[...daySales]
+if(!daySales.length){
+
+salesBox.innerHTML=
+'<div class="empty">لا توجد مبيعات لهذا اليوم</div>';
+
+}else{
+
+salesBox.innerHTML=
+[...daySales]
 .reverse()
-.map(s=>`
+.map(
+s=>`
 
 <div class="item">
 
 🛒
 
 <strong>
-${esc(s.name)}
+${escapeHtml(s.name)}
 </strong>
 
 <br>
@@ -2455,49 +3369,53 @@ ${money(s.price)}
 
 <br>
 
-<span
-style="
-color:#777;
-font-size:13px
-">
+<span class="small">
 
-${esc(s.date)}
+${escapeHtml(s.date)}
 
 </span>
 
 </div>
 
-`)
-.join("")
+`
+)
+.join("");
 
-:'<div class="empty">لا توجد مبيعات لهذا اليوم</div>';
+}
 
 
 /* المصاريف */
 
+const expenseBox=
 document.getElementById(
 "expensesList"
-).innerHTML=
+);
 
-dayExpenses.length
 
-?[...dayExpenses]
+if(!dayExpenses.length){
+
+expenseBox.innerHTML=
+'<div class="empty">لا توجد مصاريف لهذا اليوم</div>';
+
+}else{
+
+expenseBox.innerHTML=
+[...dayExpenses]
 .reverse()
-.map(e=>`
+.map(
+e=>`
 
 <div class="item">
 
 💸
 
 <strong>
-${esc(e.name)}
+${escapeHtml(e.name)}
 </strong>
 
 —
 
 ${money(e.amount)}
-
-<br>
 
 <button
 class="primary danger"
@@ -2509,36 +3427,51 @@ onclick="deleteExpense(${e.id})">
 
 </div>
 
-`)
-.join("")
+`
+)
+.join("");
 
-:'<div class="empty">لا توجد مصاريف لهذا اليوم</div>';
+}
 
 
 /* الزبائن */
 
+const customerBox=
 document.getElementById(
 "customersList"
-).innerHTML=
+);
 
-data.customers.length
 
-?data.customers
-.map(c=>`
+if(!customers.length){
+
+customerBox.innerHTML=
+'<div class="empty">لا يوجد زبائن</div>';
+
+}else{
+
+customerBox.innerHTML=
+customers
+.map(
+c=>`
 
 <div class="item">
 
 👤
 
 <strong>
-${esc(c.name)}
+${escapeHtml(c.name)}
 </strong>
 
 <br>
 
-${esc(
-c.phone||"بدون رقم هاتف"
+<span class="small">
+
+${escapeHtml(
+c.phone||
+"بدون رقم هاتف"
 )}
+
+</span>
 
 <button
 class="primary danger"
@@ -2550,47 +3483,62 @@ onclick="deleteCustomer(${c.id})">
 
 </div>
 
-`)
-.join("")
+`
+)
+.join("");
 
-:'<div class="empty">لا يوجد زبائن</div>';
+}
 
+
+/* الفواتير */
 
 refreshInvoices();
 
 }
 
 
-/* حذف كل البيانات */
+/* ==================================================
+   حذف كل البيانات
+================================================== */
 
 function clearAllData(){
 
 if(
 confirm(
-"سيتم حذف جميع البيانات. هل أنت متأكد؟"
+"سيتم حذف جميع المنتجات والمبيعات والمصاريف والزبائن والفواتير. هل أنت متأكد؟"
 )
 ){
 
-data.products=[];
-data.sales=[];
-data.expenses=[];
-data.customers=[];
-data.invoices=[];
+products=[];
 
-save();
+sales=[];
+
+expenses=[];
+
+customers=[];
+
+invoices=[];
+
+saveData();
 
 refresh();
 
-}
+alert(
+"تم حذف جميع البيانات"
+);
 
 }
 
+}
 
-/* تشغيل */
+
+/* ==================================================
+   التشغيل
+================================================== */
 
 loadSettings();
 
-updateCalendar();
+updateDate();
 
 </script>
 
