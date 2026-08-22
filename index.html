@@ -388,6 +388,73 @@ input:focus,select:focus{
   background:#64748b!important;
 }
 
+/* PAYMENT */
+
+.payment-box{
+  background:#fff;
+  border:1px solid #d8dfc7;
+  border-radius:20px;
+  padding:15px;
+  margin-top:12px;
+}
+
+.payment-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid #eee;
+}
+
+.payment-row:last-child{
+  border-bottom:0;
+}
+
+.payment-label{
+  color:var(--muted);
+  font-size:15px;
+}
+
+.payment-value{
+  font-weight:bold;
+  font-size:17px;
+}
+
+.payment-value.debt{
+  color:#e52525;
+}
+
+.payment-value.pay{
+  color:#16a34a;
+}
+
+.payment-input{
+  margin-top:8px;
+}
+
+.payment-input input{
+  font-weight:bold;
+  font-size:18px;
+  text-align:center;
+}
+
+.current-debt{
+  background:#fff4f4;
+  border:1px solid #ffd0d0;
+  border-radius:16px;
+  padding:12px;
+  margin-top:10px;
+}
+
+.current-paid{
+  background:#f0fff5;
+  border:1px solid #c8efd5;
+  border-radius:16px;
+  padding:12px;
+  margin-top:10px;
+}
+
 /* LISTS */
 
 .empty{
@@ -468,6 +535,28 @@ input:focus,select:focus{
   text-align:right;
 }
 
+.paper-summary{
+  margin-top:15px;
+  border-top:2px solid #ddd;
+  padding-top:10px;
+}
+
+.paper-summary p{
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0;
+}
+
+.paper-debt{
+  color:#e52525;
+  font-weight:bold;
+}
+
+.paper-paid{
+  color:#16a34a;
+  font-weight:bold;
+}
+
 @media(max-width:600px){
 
   .nav{
@@ -493,6 +582,7 @@ input:focus,select:focus{
   .date{
     font-size:18px;
   }
+
 }
 
 @media print{
@@ -1191,13 +1281,11 @@ let settings =
 let cart =
   JSON.parse(localStorage.getItem("cart") || "[]");
 
-
 let currentUser =
   settings.username || "admin";
 
 let currentPassword =
   settings.password || "1234";
-
 
 let selectedDate = new Date();
 
@@ -1719,6 +1807,145 @@ function getCartQuantity(){
 
 
 /* =========================================
+   الدين السابق للعميل
+========================================= */
+
+function getCustomerPreviousDebt(customer){
+
+  if(!customer){
+    return 0;
+  }
+
+  return Math.max(
+    0,
+    Number(customer.totalDebt || 0) -
+    Number(customer.totalPaid || 0)
+  );
+
+}
+
+
+/* =========================================
+   الحصول على الدفع الحالي
+========================================= */
+
+function getInvoicePayment(source){
+
+  const input =
+    $(source + "Payment");
+
+  if(!input){
+    return 0;
+  }
+
+  let amount =
+    Number(input.value) || 0;
+
+  const total =
+    getCartTotal();
+
+  if(amount < 0){
+    amount = 0;
+  }
+
+  if(amount > total){
+    amount = total;
+  }
+
+  return amount;
+
+}
+
+
+/* =========================================
+   تحديث معلومات الدفع داخل الفاتورة
+========================================= */
+
+function updateInvoicePayment(source){
+
+  const select =
+    $(source + "Customer");
+
+  const customer =
+    customers.find(
+      c =>
+        String(c.id) ===
+        String(select?.value)
+    );
+
+  const total =
+    getCartTotal();
+
+  const paidThisInvoice =
+    getInvoicePayment(source);
+
+  const previousDebt =
+    getCustomerPreviousDebt(customer);
+
+  const remaining =
+    Math.max(
+      0,
+      previousDebt +
+      total -
+      paidThisInvoice
+    );
+
+
+  const paidBox =
+    $(source + "PaidDisplay");
+
+  const remainingBox =
+    $(source + "RemainingDisplay");
+
+  const previousBox =
+    $(source + "PreviousDebtDisplay");
+
+
+  if(paidBox){
+
+    paidBox.textContent =
+      money(paidThisInvoice);
+
+  }
+
+  if(remainingBox){
+
+    remainingBox.textContent =
+      money(remaining);
+
+  }
+
+  if(previousBox){
+
+    previousBox.textContent =
+      money(previousDebt);
+
+  }
+
+}
+
+
+/* =========================================
+   تغيير العميل
+========================================= */
+
+function invoiceCustomerChanged(source){
+
+  const paymentInput =
+    $(source + "Payment");
+
+  if(paymentInput){
+
+    paymentInput.value = "0";
+
+  }
+
+  updateInvoicePayment(source);
+
+}
+
+
+/* =========================================
    عرض الفاتورة الحالية
 ========================================= */
 
@@ -1873,7 +2100,8 @@ function renderInvoiceBox(elementId){
       </label>
 
       <select
-        id="${elementId}Customer">
+        id="${elementId}Customer"
+        onchange="invoiceCustomerChanged('${elementId}')">
 
         <option value="">
           عميل نقدي / بدون اسم
@@ -1882,6 +2110,85 @@ function renderInvoiceBox(elementId){
         ${customerOptions}
 
       </select>
+
+
+      <!-- =========================
+           معلومات الدفع الجديدة
+      ========================== -->
+
+      <div class="payment-box">
+
+        <div class="payment-row">
+
+          <span class="payment-label">
+            📌 الدين السابق
+          </span>
+
+          <span
+            id="${elementId}PreviousDebtDisplay"
+            class="payment-value debt">
+            0 دج
+          </span>
+
+        </div>
+
+
+        <div class="payment-input">
+
+          <label class="small">
+            💵 كم دفع العميل في هذه الفاتورة؟
+          </label>
+
+          <input
+            id="${elementId}Payment"
+            type="number"
+            min="0"
+            step="1"
+            value="0"
+            placeholder="أدخل المبلغ المدفوع"
+            oninput="updateInvoicePayment('${elementId}')">
+
+        </div>
+
+
+        <div class="payment-row">
+
+          <span class="payment-label">
+            💵 المدفوع في هذه الفاتورة
+          </span>
+
+          <span
+            id="${elementId}PaidDisplay"
+            class="payment-value pay">
+            0 دج
+          </span>
+
+        </div>
+
+
+        <div class="current-debt">
+
+          <div class="payment-row">
+
+            <span class="payment-label">
+              📌 إجمالي باقي الدين
+            </span>
+
+            <span
+              id="${elementId}RemainingDisplay"
+              class="payment-value debt">
+              0 دج
+            </span>
+
+          </div>
+
+          <div class="small">
+            الدين السابق + قيمة هذه الفاتورة − المدفوع في هذه الفاتورة
+          </div>
+
+        </div>
+
+      </div>
 
 
       <div class="itotal">
@@ -1929,6 +2236,9 @@ function renderInvoiceBox(elementId){
     </div>
 
   `;
+
+
+  updateInvoicePayment(elementId);
 
 }
 
@@ -2026,6 +2336,37 @@ function confirmSale(source){
   const items = [];
 
 
+  const invoiceTotal =
+    getCartTotal();
+
+
+  let paidThisInvoice =
+    getInvoicePayment(source);
+
+
+  if(paidThisInvoice > invoiceTotal){
+
+    paidThisInvoice =
+      invoiceTotal;
+
+  }
+
+
+  const previousDebt =
+    getCustomerPreviousDebt(customer);
+
+
+  const remainingDebt =
+    customer
+      ? Math.max(
+          0,
+          previousDebt +
+          invoiceTotal -
+          paidThisInvoice
+        )
+      : 0;
+
+
   cart.forEach(item => {
 
     const product =
@@ -2082,12 +2423,50 @@ function confirmSale(source){
   });
 
 
-  const invoiceTotal =
-    items.reduce(
-      (sum,item) =>
-        sum + item.total,
-      0
-    );
+  /* =========================================
+     تحديث حساب العميل
+  ========================================= */
+
+  if(customer){
+
+    /*
+      نضيف قيمة الفاتورة إلى إجمالي الدين
+      ثم نضيف المبلغ المدفوع في هذه الفاتورة
+      إلى إجمالي المدفوع.
+    */
+
+    customer.totalDebt =
+      Number(customer.totalDebt || 0) +
+      invoiceTotal;
+
+
+    customer.totalPaid =
+      Number(customer.totalPaid || 0) +
+      paidThisInvoice;
+
+
+    customer.payments =
+      customer.payments || [];
+
+
+    if(paidThisInvoice > 0){
+
+      customer.payments.push({
+
+        amount:paidThisInvoice,
+
+        type:"invoice",
+
+        invoiceId:invoiceId,
+
+        date:
+          now.toLocaleString("ar-DZ")
+
+      });
+
+    }
+
+  }
 
 
   invoices.push({
@@ -2110,6 +2489,21 @@ function confirmSale(source){
     items:items,
 
     total:invoiceTotal,
+
+    /*
+      معلومات الدفع الجديدة
+    */
+
+    previousDebt:
+      previousDebt,
+
+    paidThisInvoice:
+      customer
+        ? paidThisInvoice
+        : invoiceTotal,
+
+    remainingDebt:
+      remainingDebt,
 
     date:
       now.toLocaleString("ar-DZ"),
@@ -2160,6 +2554,29 @@ function previewCurrentInvoice(source){
         String(c.id) ===
         String(select?.value)
     );
+
+
+  const paidThisInvoice =
+    getInvoicePayment(source);
+
+
+  const invoiceTotal =
+    getCartTotal();
+
+
+  const previousDebt =
+    getCustomerPreviousDebt(customer);
+
+
+  const remainingDebt =
+    customer
+      ? Math.max(
+          0,
+          previousDebt +
+          invoiceTotal -
+          paidThisInvoice
+        )
+      : 0;
 
 
   const now =
@@ -2272,8 +2689,89 @@ function previewCurrentInvoice(source){
 
       <h2>
         الإجمالي:
-        ${money(getCartTotal())}
+        ${money(invoiceTotal)}
       </h2>
+
+
+      ${
+        customer
+        ? `
+
+          <div class="paper-summary">
+
+            <p>
+
+              <span>
+                📌 الدين السابق:
+              </span>
+
+              <b class="paper-debt">
+                ${money(previousDebt)}
+              </b>
+
+            </p>
+
+
+            <p>
+
+              <span>
+                💵 المدفوع في هذه الفاتورة:
+              </span>
+
+              <b class="paper-paid">
+                ${money(paidThisInvoice)}
+              </b>
+
+            </p>
+
+
+            <p>
+
+              <span>
+                📌 إجمالي باقي الدين:
+              </span>
+
+              <b class="paper-debt">
+                ${money(remainingDebt)}
+              </b>
+
+            </p>
+
+          </div>
+
+        `
+        : `
+
+          <div class="paper-summary">
+
+            <p>
+
+              <span>
+                💵 المدفوع:
+              </span>
+
+              <b class="paper-paid">
+                ${money(invoiceTotal)}
+              </b>
+
+            </p>
+
+            <p>
+
+              <span>
+                📌 باقي الدين:
+              </span>
+
+              <b>
+                0 دج
+              </b>
+
+            </p>
+
+          </div>
+
+        `
+      }
 
 
       <hr>
@@ -2378,9 +2876,64 @@ function renderSavedInvoices(){
 
           </p>
 
-          <b>
-            ${money(invoice.total)}
-          </b>
+          <div>
+            💰 إجمالي الفاتورة:
+            <b>
+              ${money(invoice.total)}
+            </b>
+          </div>
+
+
+          ${
+            invoice.customerId
+            ? `
+
+              <div>
+                📌 الدين السابق:
+                <span class="debt">
+                  ${money(
+                    invoice.previousDebt || 0
+                  )}
+                </span>
+              </div>
+
+              <div>
+                💵 المدفوع في هذه الفاتورة:
+                <span class="pay">
+                  ${money(
+                    invoice.paidThisInvoice || 0
+                  )}
+                </span>
+              </div>
+
+              <div>
+                📌 إجمالي باقي الدين:
+                <span class="debt">
+                  ${money(
+                    invoice.remainingDebt || 0
+                  )}
+                </span>
+              </div>
+
+            `
+            : `
+
+              <div>
+                💵 المدفوع:
+                <span class="pay">
+                  ${money(invoice.total)}
+                </span>
+              </div>
+
+              <div>
+                📌 باقي الدين:
+                <span class="pay">
+                  0 دج
+                </span>
+              </div>
+
+            `
+          }
 
 
           <button
@@ -2441,6 +2994,47 @@ function showSavedInvoice(id){
 
       `)
       .join("");
+
+
+  /*
+    دعم الفواتير القديمة التي كانت موجودة
+    قبل إضافة نظام الدفع.
+  */
+
+  const oldInvoice =
+    !Object.prototype.hasOwnProperty.call(
+      invoice,
+      "paidThisInvoice"
+    );
+
+
+  let previousDebt =
+    Number(invoice.previousDebt || 0);
+
+  let paidThisInvoice =
+    Number(invoice.paidThisInvoice || 0);
+
+  let remainingDebt =
+    Number(invoice.remainingDebt || 0);
+
+
+  /*
+    إذا كانت الفاتورة قديمة:
+    نعرضها كما كانت بدون تغيير بيانات العميل.
+  */
+
+  if(oldInvoice){
+
+    previousDebt = 0;
+
+    paidThisInvoice =
+      invoice.customerId
+        ? 0
+        : invoice.total;
+
+    remainingDebt = 0;
+
+  }
 
 
   $("paper").innerHTML = `
@@ -2507,6 +3101,87 @@ function showSavedInvoice(id){
         الإجمالي:
         ${money(invoice.total)}
       </h2>
+
+
+      ${
+        invoice.customerId
+        ? `
+
+          <div class="paper-summary">
+
+            <p>
+
+              <span>
+                📌 الدين السابق:
+              </span>
+
+              <b class="paper-debt">
+                ${money(previousDebt)}
+              </b>
+
+            </p>
+
+
+            <p>
+
+              <span>
+                💵 المدفوع في هذه الفاتورة:
+              </span>
+
+              <b class="paper-paid">
+                ${money(paidThisInvoice)}
+              </b>
+
+            </p>
+
+
+            <p>
+
+              <span>
+                📌 إجمالي باقي الدين:
+              </span>
+
+              <b class="paper-debt">
+                ${money(remainingDebt)}
+              </b>
+
+            </p>
+
+          </div>
+
+        `
+        : `
+
+          <div class="paper-summary">
+
+            <p>
+
+              <span>
+                💵 المدفوع:
+              </span>
+
+              <b class="paper-paid">
+                ${money(invoice.total)}
+              </b>
+
+            </p>
+
+            <p>
+
+              <span>
+                📌 باقي الدين:
+              </span>
+
+              <b>
+                0 دج
+              </b>
+
+            </p>
+
+          </div>
+
+        `
+      }
 
 
       <hr>
@@ -2704,6 +3379,8 @@ function addCustomerPayment(id){
   customer.payments.push({
 
     amount:amount,
+
+    type:"general",
 
     date:
       new Date()
