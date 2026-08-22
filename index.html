@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
@@ -341,6 +342,34 @@ font-weight:bold;
 text-align:center;
 }
 
+/* معلومات الدين */
+
+.debt-box{
+background:#f8fafc;
+border:1px solid #dbe3f0;
+border-radius:15px;
+padding:13px;
+margin-top:10px;
+}
+
+.debt-row{
+display:flex;
+justify-content:space-between;
+gap:10px;
+padding:7px 0;
+border-bottom:1px solid #e5e7eb;
+}
+
+.debt-row:last-child{
+border-bottom:0;
+}
+
+.debt-total{
+font-weight:bold;
+color:#dc2626;
+font-size:17px;
+}
+
 /* الفاتورة */
 
 .invoice{
@@ -361,6 +390,18 @@ margin-bottom:8px;
 font-size:19px;
 font-weight:bold;
 margin-top:10px;
+}
+
+.invoice-debt{
+background:#fff7ed;
+border:1px solid #fed7aa;
+border-radius:13px;
+padding:12px;
+margin-top:12px;
+}
+
+.invoice-debt strong{
+color:#dc2626;
 }
 
 /* إعدادات */
@@ -417,6 +458,7 @@ box-shadow:none;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -573,6 +615,74 @@ accept="image/*">
 <p class="small">
 👆 اضغط على المنتج مرة لكل قطعة تريد بيعها.
 </p>
+
+<!-- معلومات الزبون والدفع -->
+
+<div class="debt-box">
+
+<label class="small">
+👤 الزبون
+</label>
+
+<select id="saleCustomer"
+onchange="updateCustomerDebtPreview()">
+
+<option value="">
+زبون عادي
+</option>
+
+</select>
+
+<label class="small">
+💵 المبلغ المدفوع الآن
+</label>
+
+<input
+id="paidAmount"
+type="number"
+min="0"
+placeholder="المبلغ الذي دفعه الزبون"
+oninput="updateCustomerDebtPreview()">
+
+<div class="debt-row">
+
+<span>
+الدين السابق:
+</span>
+
+<strong id="previousDebt">
+0 دج
+</strong>
+
+</div>
+
+<div class="debt-row">
+
+<span>
+المتبقي من الفاتورة:
+</span>
+
+<strong id="currentDebt">
+0 دج
+</strong>
+
+</div>
+
+<div class="debt-row">
+
+<span>
+إجمالي الدين بعد الفاتورة:
+</span>
+
+<strong
+id="totalDebtAfter"
+class="debt-total">
+0 دج
+</strong>
+
+</div>
+
+</div>
 
 <div id="saleProductsGrid"
 class="product-grid">
@@ -867,6 +977,154 @@ return Number(n||0)
 
 
 /* =====================
+   حساب دين الزبون
+===================== */
+
+function getCustomerDebt(customerId){
+
+if(!customerId){
+
+return 0;
+
+}
+
+return invoices
+.filter(
+i =>
+String(i.customerId) === String(customerId)
+)
+.reduce(
+(sum,i) =>
+sum + Number(i.remainingDebt || 0),
+0
+);
+
+}
+
+
+/* =====================
+   تحديث معلومات الدين
+===================== */
+
+function updateCustomerDebtPreview(){
+
+const customerSelect =
+document.getElementById("saleCustomer");
+
+const paidInput =
+document.getElementById("paidAmount");
+
+if(!customerSelect || !paidInput){
+
+return;
+
+}
+
+const customerId =
+customerSelect.value;
+
+const paid =
+Number(paidInput.value) || 0;
+
+const total =
+cart.reduce(
+(sum,item) =>
+sum + item.price * item.quantity,
+0
+);
+
+const previousDebt =
+getCustomerDebt(customerId);
+
+let currentDebt =
+total - paid;
+
+if(currentDebt < 0){
+
+currentDebt=0;
+
+}
+
+const totalDebt =
+previousDebt + currentDebt;
+
+document.getElementById(
+"previousDebt"
+).textContent =
+money(previousDebt);
+
+document.getElementById(
+"currentDebt"
+).textContent =
+money(currentDebt);
+
+document.getElementById(
+"totalDebtAfter"
+).textContent =
+money(totalDebt);
+
+}
+
+
+/* =====================
+   قائمة الزبائن للبيع
+===================== */
+
+function renderCustomerSelect(){
+
+const select =
+document.getElementById(
+"saleCustomer"
+);
+
+if(!select){
+
+return;
+
+}
+
+const current =
+select.value;
+
+select.innerHTML =
+`
+<option value="">
+زبون عادي
+</option>
+`
++
+customers.map(c => {
+
+const debt =
+getCustomerDebt(c.id);
+
+return `
+<option value="${c.id}">
+${c.name}
+${debt > 0 ? " — دين: " + money(debt) : ""}
+</option>
+`;
+
+}).join("");
+
+if(
+customers.some(
+c =>
+String(c.id) ===
+String(current)
+)
+){
+
+select.value=current;
+
+}
+
+updateCustomerDebtPreview();
+
+}
+
+
+/* =====================
    الإعدادات
 ===================== */
 
@@ -941,7 +1199,11 @@ document
 b=>b.classList.remove("active")
 );
 
+if(btn){
+
 btn.classList.add("active");
+
+}
 
 refresh();
 
@@ -1267,9 +1529,20 @@ function clearCart(){
 
 cart=[];
 
+const paidInput =
+document.getElementById("paidAmount");
+
+if(paidInput){
+
+paidInput.value="";
+
+}
+
 renderSaleProducts();
 
 renderCart();
+
+updateCustomerDebtPreview();
 
 }
 
@@ -1284,6 +1557,12 @@ const box =
 document.getElementById(
 "saleProductsGrid"
 );
+
+if(!box){
+
+return;
+
+}
 
 if(products.length===0){
 
@@ -1385,6 +1664,12 @@ document.getElementById(
 "cartTotal"
 );
 
+if(!box || !totalBox){
+
+return;
+
+}
+
 if(cart.length===0){
 
 box.innerHTML=
@@ -1396,6 +1681,8 @@ box.innerHTML=
 
 totalBox.textContent=
 "0 دج";
+
+updateCustomerDebtPreview();
 
 return;
 
@@ -1484,6 +1771,8 @@ onclick="removeFromCart(${item.productId})">
 totalBox.textContent=
 money(total);
 
+updateCustomerDebtPreview();
+
 }
 
 
@@ -1501,6 +1790,73 @@ return;
 
 }
 
+
+/* الزبون والدفع */
+
+const customerId =
+document.getElementById(
+"saleCustomer"
+).value || null;
+
+const paidAmount =
+Number(
+document.getElementById(
+"paidAmount"
+).value
+) || 0;
+
+
+/* إجمالي الفاتورة */
+
+const saleTotal =
+cart.reduce(
+(sum,item) =>
+sum + item.price * item.quantity,
+0
+);
+
+
+if(paidAmount < 0){
+
+alert(
+"❌ المبلغ المدفوع غير صحيح"
+);
+
+return;
+
+}
+
+
+if(paidAmount > saleTotal){
+
+alert(
+"❌ المبلغ المدفوع أكبر من إجمالي الفاتورة"
+);
+
+return;
+
+}
+
+
+/* الدين السابق */
+
+const previousDebt =
+getCustomerDebt(customerId);
+
+
+/* الدين الحالي */
+
+const currentDebt =
+saleTotal - paidAmount;
+
+
+/* إجمالي الدين */
+
+const totalDebtAfter =
+previousDebt + currentDebt;
+
+
+/* التأكد من المخزون */
 
 for(const item of cart){
 
@@ -1576,12 +1932,56 @@ date
 }
 
 
+/* اسم الزبون */
+
+let customerName =
+"زبون عادي";
+
+if(customerId){
+
+const customer =
+customers.find(
+c =>
+String(c.id) ===
+String(customerId)
+);
+
+if(customer){
+
+customerName =
+customer.name;
+
+}
+
+}
+
+
+/* إنشاء الفاتورة */
+
 invoices.push({
 
 id:saleId,
 
 number:
 "INV-"+saleId,
+
+customerId:
+customerId,
+
+customerName:
+customerName,
+
+previousDebt:
+previousDebt,
+
+paid:
+paidAmount,
+
+remainingDebt:
+currentDebt,
+
+totalDebtAfter:
+totalDebtAfter,
 
 items:
 cart.map(item=>({
@@ -1609,6 +2009,18 @@ shop:shopName
 saveData();
 
 cart=[];
+
+
+/* تنظيف الدفع */
+
+document.getElementById(
+"saleCustomer"
+).value="";
+
+document.getElementById(
+"paidAmount"
+).value="";
+
 
 refresh();
 
@@ -1849,11 +2261,61 @@ ${money(item.total)}
 }
 
 
+/* معلومات الزبون والدين */
+
+const customerDebtHTML = `
+
+<div class="invoice-debt">
+
+<div>
+👤 <strong>
+الزبون:
+${invoice.customerName || "زبون عادي"}
+</strong>
+</div>
+
+<br>
+
+<div>
+💳 الدين السابق:
+<strong>
+${money(invoice.previousDebt || 0)}
+</strong>
+</div>
+
+<div>
+💵 المبلغ المدفوع:
+<strong>
+${money(invoice.paid || 0)}
+</strong>
+</div>
+
+<div>
+📌 المتبقي من هذه الفاتورة:
+<strong>
+${money(invoice.remainingDebt || 0)}
+</strong>
+</div>
+
+<div style="margin-top:8px;font-size:18px;">
+
+📋 إجمالي الدين على الزبون:
+<strong>
+${money(invoice.totalDebtAfter || 0)}
+</strong>
+
+</div>
+
+</div>
+
+`;
+
+
 box.innerHTML=`
 
 <div style="text-align:center">
 
-<h2>🧾 ${shopName}</h2>
+<h2>🧾 ${invoice.shop || shopName}</h2>
 
 <div>
 فاتورة بيع
@@ -1876,13 +2338,15 @@ ${invoice.number}
 📅 ${invoice.date}
 </div>
 
+${customerDebtHTML}
+
 <hr>
 
 ${itemsHTML}
 
 <div class="invoice-total">
 
-💰 الإجمالي:
+💰 إجمالي الفاتورة:
 ${money(invoice.total)}
 
 </div>
@@ -2128,6 +2592,8 @@ onclick="deleteProduct(${p.id})">
 
 renderSaleProducts();
 
+renderCustomerSelect();
+
 renderCart();
 
 
@@ -2216,6 +2682,10 @@ invoicesList.innerHTML=
 </div>
 
 <div>
+👤 ${i.customerName||"زبون عادي"}
+</div>
+
+<div>
 📅 ${i.date}
 </div>
 
@@ -2223,6 +2693,34 @@ invoicesList.innerHTML=
 💰 الإجمالي:
 <strong>
 ${money(i.total)}
+</strong>
+</div>
+
+<div>
+💵 المدفوع:
+<strong>
+${money(i.paid||0)}
+</strong>
+</div>
+
+<div>
+📌 المتبقي:
+<strong>
+${money(i.remainingDebt||0)}
+</strong>
+</div>
+
+<div>
+📋 الدين السابق:
+<strong>
+${money(i.previousDebt||0)}
+</strong>
+</div>
+
+<div>
+🔴 إجمالي دين الزبون:
+<strong>
+${money(i.totalDebtAfter||0)}
 </strong>
 </div>
 
@@ -2312,7 +2810,12 @@ customersList.innerHTML=
 }else{
 
 customersList.innerHTML=
-customers.map(c=>`
+customers.map(c=>{
+
+const debt =
+getCustomerDebt(c.id);
+
+return `
 
 <div class="item">
 
@@ -2328,6 +2831,19 @@ ${c.phone||"بدون رقم هاتف"}
 
 </span>
 
+<br>
+
+<span class="small">
+
+💰 الدين الحالي:
+<strong style="color:#dc2626">
+
+${money(debt)}
+
+</strong>
+
+</span>
+
 <button
 class="danger"
 onclick="deleteCustomer(${c.id})">
@@ -2338,9 +2854,16 @@ onclick="deleteCustomer(${c.id})">
 
 </div>
 
-`).join("");
+`;
+
+}).join("");
 
 }
+
+
+/* تحديث معلومات الدين */
+
+updateCustomerDebtPreview();
 
 }
 
